@@ -143,3 +143,6 @@ $.extract_object_value = (data, parametro) ->
         data = {"object":data}
 
     # console.log parametro
+
+    #entra no loop
+    $.each data.object, (key, val) ->
