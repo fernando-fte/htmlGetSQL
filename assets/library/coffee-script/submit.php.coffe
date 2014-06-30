@@ -13,3 +13,7 @@ $.submt_post = (value) ->
         async: false
     )
 
+    # resultado de retorno
+    .done (data) -> 
+        # console.log data # exibe valor de data
+        value = data
