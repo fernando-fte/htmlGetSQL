@@ -172,3 +172,9 @@ $.extract_object_value = (data, parametro) ->
                 parametro_.valida = parametro.valida[key] if parametro.valida && parametro.valida[key]
                 parametro_.valida = {} if parametro.valida && !parametro.valida[key]
                 # # #
+
+                # cria novo parametro para keys
+                parametro_ = {} if parametro.key
+                parametro_.key = parametro.key[key] if parametro.key && parametro.key[key]
+                parametro_.key = {} if parametro.key && !parametro.key[key]
+                # # #
