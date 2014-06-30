@@ -17,3 +17,6 @@ $.submt_post = (value) ->
     .done (data) -> 
         # console.log data # exibe valor de data
         value = data
+
+    # retorna value a solicitação com 'eval()'
+    return eval(value)
