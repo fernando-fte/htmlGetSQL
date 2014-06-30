@@ -79,3 +79,6 @@ $.parser_values_request = (me, data, val) -> #recebe função
 
         # processo os valores na subfunção 'f_parser_values_request'
         f_parser_values_request process
+
+    # caso seja um '[object Object]'
+    else # if !data or (!data+'') is '[object Object]'
