@@ -77,3 +77,5 @@ $.parser_values_request = (me, data, val) -> #recebe função
         process.type = val
         process.me
 
+        # processo os valores na subfunção 'f_parser_values_request'
+        f_parser_values_request process
