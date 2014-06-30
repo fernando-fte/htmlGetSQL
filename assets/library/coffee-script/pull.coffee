@@ -188,3 +188,10 @@ $.extract_object_value = (data, parametro) ->
 
                 #Retorna todos os valores a uma NOVA FUNCAO
                 $.extract_object_value data, parametro_
+
+
+        # quando não é mais um objeto e sim um valor
+        else # (val+'') is '[object Object]'
+
+            # cria data.return caso não exista
+            data.return = [] if !data.return
