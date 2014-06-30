@@ -136,3 +136,10 @@ $.extract_object_value = (data, parametro) ->
                 return false
             else
                 return true
+        
+    #cria data.object quando não houver
+    if !data.object
+        temp = data
+        data = {"object":data}
+
+    # console.log parametro
