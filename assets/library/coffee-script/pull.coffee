@@ -207,3 +207,19 @@ $.extract_object_value = (data, parametro) ->
             # cria objeto em temp para preencher em data.return
             temp = {} if parametro.key && parametro.key[key]
             temp[key] = val if parametro.key && parametro.key[key]
+
+
+            # # # # # # # # # # # # # # # # #
+            # monta os valores para retorno
+
+            # adiciona em return o valor da ultima chave
+            data.return.push temp if parametro.key && parametro.key[key]
+
+            # adiciona em return o valor quando comparado sendo A|B A∩B
+            data.return.push temp if parametro.valida && parametro.valida[key]
+            
+            # adiciona a estrutura em push
+            data.return.push parametro.estrutura if parametro.estrutura
+
+            # adiciona em return a lista de valores
+            data.return.push val if !parametro.valida && !parametro.estrutura && !parametro.key
