@@ -82,3 +82,9 @@ $.parser_values_request = (me, data, val) -> #recebe função
 
     # caso seja um '[object Object]'
     else # if !data or (!data+'') is '[object Object]'
+
+        # recebe e copile os valores para a sincronia
+        copile = $.extract_object_value data, {"valida":val}
+
+        # cria contador
+        count = 0
