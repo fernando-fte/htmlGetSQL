@@ -223,3 +223,6 @@ $.extract_object_value = (data, parametro) ->
 
             # adiciona em return a lista de valores
             data.return.push val if !parametro.valida && !parametro.estrutura && !parametro.key
+
+    # retorna os valores
+    return data.return
