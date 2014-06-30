@@ -2,9 +2,11 @@
 # APLICAÇÃO DE TRATAMENTO DAS SOLICITAÇÃO VIA JSON VINDA DO BANCO #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# # # # FUNÇÕES DE APOIO # # # # 
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # recebe e trata os valores de solicitação e resposta
-$.parser_values_request = (me, data, val) -> #recebe função
+$.parser_values_request = (me, data, val) -> #recebe função, introdução a baixo
 
     # subfunção de retorno de valores
     f_parser_values_request = (value) ->
@@ -54,10 +56,10 @@ $.parser_values_request = (me, data, val) -> #recebe função
                 value.me.data("template-request-toogle", value.val) if !value.return
                 value.me.data("template-request-toogle")[value.return] if value.return
 
+    # # # # # # # # # # # # # # # # # # # # # # # # #
 
-    # # # # # # # # # # # # # # # # # # # # # # # # # #
-    # INICIA A APLIÇÃO DA FUNÇÃO $.PARSER_VALUES_REQUEST
     # # # # #
+    # Inicia a aplição da função $.parser_values_request
 
     # # # # #
     # # Descreve valores recebidos em '$.parser_values_request = (me, data, val) ->'
@@ -65,7 +67,7 @@ $.parser_values_request = (me, data, val) -> #recebe função
     # data = valor unico para tipo de campo
     # val  = valor a ser acrecentado conforme "data" ou a 
     #        solicitação do reconhecimento do campo
-    # 
+    # # # # #
 
     # cria object 'process' trasportador de valores
     process =  {}
@@ -103,31 +105,30 @@ $.parser_values_request = (me, data, val) -> #recebe função
 
             # acrecento no loop
             count++
-
+#
 # Fim de "recebe e trata os valores de solicitação e resposta"
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# função de extração de valores do object
+# extrai os valores do object
 $.extract_object_value = (data, parametro) ->
+    # # # #
     # deve ser passado dois valores, um data e outro parametro sendo este relativo
     # caso não exista parametro comparativo será retornado o valor de data como uma lista
     # se houver parametro valida deve ser retornar um valor em lista com o valor -> a:b
 
-    # exemplos de uso
-    # banco = {"oi":"a", "1":{"1.1":{"1.1.1":"res 1.1.1 - banco"}, "1.2":{"1.2.1":"res 1.2.1 - banco"}}, "2":{"2.1":{"2.1.1":"res 2.1.1 - banco"}, "2.2":{"2.2.2":"res 2.2.1 - banco"}}}
-    # value = {"1.1.1":"text"}
-    # key = {"oi":"a", "1":{"1.1":{"1.1.1":"res 1.1.1 - banco"}}}
+    # # # #
+    # exemplos de uso:
+    # # banco = {"oi":"a", "1":{"1.1":{"1.1.1":"res 1.1.1 - banco"}, "1.2":{"1.2.1":"res 1.2.1 - banco"}}, "2":{"2.1":{"2.1.1":"res 2.1.1 - banco"}, "2.2":{"2.2.2":"res 2.2.1 - banco"}}}
+    # # value = {"1.1.1":"text"}
+    # # key = {"oi":"a", "1":{"1.1":{"1.1.1":"res 1.1.1 - banco"}}}
 
-
-    # # # console.log banco
+    # # console.log banco
     # # console.log $.extract_object_value {object:banco}, {"valida":key}
     # # console.log $.extract_object_value {object:banco}, {"key":key}
     # # console.log $.extract_object_value {object:banco}, {"estrutura"}
     # # console.log $.extract_object_value {object:banco}, {}
-
+    # # # #
 
     # sub função para a validação do tipo de exceução
     f_excecao = (key) ->
@@ -142,7 +143,6 @@ $.extract_object_value = (data, parametro) ->
         temp = data
         data = {"object":data}
 
-    # console.log parametro
 
     #entra no loop
     $.each data.object, (key, val) ->
@@ -226,6 +226,6 @@ $.extract_object_value = (data, parametro) ->
 
     # retorna os valores
     return data.return
-
-# Fim de "função de extração de valores do object"
+#
+# Fim de "extrai os valores do object"
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
