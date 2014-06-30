@@ -226,3 +226,6 @@ $.extract_object_value = (data, parametro) ->
 
     # retorna os valores
     return data.return
+
+# Fim de "função de extração de valores do object"
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
