@@ -199,3 +199,7 @@ $.extract_object_value = (data, parametro) ->
             # cria objeto para retornar a estrutura
             parametro.estrutura = parametro.estrutura+'["'+key+'"]' if parametro.estrutura # constroi a arvore de acesso
             parametro.estrutura = '["'+key+'"]' if parametro.estrutura is ('estrutura["'+key+'"]') or parametro.estrutura is ''  # retorna apenas o primeiro valor
+
+            # cria objeto em temp para preencher em data.return
+            temp = {} if parametro.valida && parametro.valida[key]
+            temp[val] = parametro.valida[key] if parametro.valida && parametro.valida[key]
