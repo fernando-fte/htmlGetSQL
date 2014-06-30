@@ -151,3 +151,10 @@ $.extract_object_value = (data, parametro) ->
 
             # valida se pode ser processado
             _return = f_excecao key
+
+            # retorno o valor de template-toogle direto ao return
+            if key is 'template-toogle'
+                temp = {}
+                temp[key] = parametro.valida[key]
+
+                data.return.push temp
