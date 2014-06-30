@@ -66,3 +66,7 @@ $.parser_values_request = (me, data, val) -> #recebe função
     #        solicitação do reconhecimento do campo
     # 
 
+    # cria object 'process' trasportador de valores
+    process =  {}
+
+
