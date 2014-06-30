@@ -54,3 +54,15 @@ $.parser_values_request = (me, data, val) -> #recebe função
                 value.me.data("template-request-toogle")[value.return] if value.return
 
 
+    # # # # # # # # # # # # # # # # # # # # # # # # # #
+    # INICIA A APLIÇÃO DA FUNÇÃO $.PARSER_VALUES_REQUEST
+    # # # # #
+
+    # # # # #
+    # # Descreve valores recebidos em '$.parser_values_request = (me, data, val) ->'
+    # me   = html na arvore down
+    # data = valor unico para tipo de campo
+    # val  = valor a ser acrecentado conforme "data" ou a 
+    #        solicitação do reconhecimento do campo
+    # 
+
