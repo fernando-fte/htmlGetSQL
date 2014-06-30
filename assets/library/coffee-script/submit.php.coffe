@@ -1,0 +1,2 @@
+# FUNÇÃO ENVIAR PARA PHP #
+$.submt_post = (value) ->
