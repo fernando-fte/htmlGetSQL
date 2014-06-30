@@ -112,3 +112,19 @@ $.parser_values_request = (me, data, val) -> #recebe função
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # função de extração de valores do object
 $.extract_object_value = (data, parametro) ->
+    # deve ser passado dois valores, um data e outro parametro sendo este relativo
+    # caso não exista parametro comparativo será retornado o valor de data como uma lista
+    # se houver parametro valida deve ser retornar um valor em lista com o valor -> a:b
+
+    # exemplos de uso
+    # banco = {"oi":"a", "1":{"1.1":{"1.1.1":"res 1.1.1 - banco"}, "1.2":{"1.2.1":"res 1.2.1 - banco"}}, "2":{"2.1":{"2.1.1":"res 2.1.1 - banco"}, "2.2":{"2.2.2":"res 2.2.1 - banco"}}}
+    # value = {"1.1.1":"text"}
+    # key = {"oi":"a", "1":{"1.1":{"1.1.1":"res 1.1.1 - banco"}}}
+
+
+    # # # console.log banco
+    # # console.log $.extract_object_value {object:banco}, {"valida":key}
+    # # console.log $.extract_object_value {object:banco}, {"key":key}
+    # # console.log $.extract_object_value {object:banco}, {"estrutura"}
+    # # console.log $.extract_object_value {object:banco}, {}
+
