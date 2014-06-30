@@ -158,3 +158,11 @@ $.extract_object_value = (data, parametro) ->
                 temp[key] = parametro.valida[key]
 
                 data.return.push temp
+
+            # caso passe na validação
+            if _return
+
+                #aplica em data.object o "val"
+                parametro_ = {}
+                data.object = val # if !data.parametro.parametroaracao
+                # # #
