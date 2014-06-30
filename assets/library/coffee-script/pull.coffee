@@ -146,3 +146,6 @@ $.extract_object_value = (data, parametro) ->
 
     #entra no loop
     $.each data.object, (key, val) ->
+        # verifica se é um objeto
+        if (val+'') is '[object Object]' #quando val: objeto
+
