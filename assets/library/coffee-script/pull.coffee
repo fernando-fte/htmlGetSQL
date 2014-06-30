@@ -128,3 +128,11 @@ $.extract_object_value = (data, parametro) ->
     # # console.log $.extract_object_value {object:banco}, {"estrutura"}
     # # console.log $.extract_object_value {object:banco}, {}
 
+
+    # sub função para a validação do tipo de exceução
+    f_excecao = (key) ->
+        switch key
+            when "template-toogle"
+                return false
+            else
+                return true
