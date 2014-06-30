@@ -229,3 +229,11 @@ $.extract_object_value = (data, parametro) ->
 #
 # Fim de "extrai os valores do object"
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
+# # # # FUNÇÂO PRINCIPAL # # # # 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# recebe valores do html e trata os valores e aplica tratamentos
+$.pull_values = (html) ->
+
