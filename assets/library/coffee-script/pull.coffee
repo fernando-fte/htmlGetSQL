@@ -166,3 +166,9 @@ $.extract_object_value = (data, parametro) ->
                 parametro_ = {}
                 data.object = val # if !data.parametro.parametroaracao
                 # # #
+
+                # cria novo parametro para valida
+                parametro_ = {} if parametro.valida
+                parametro_.valida = parametro.valida[key] if parametro.valida && parametro.valida[key]
+                parametro_.valida = {} if parametro.valida && !parametro.valida[key]
+                # # #
