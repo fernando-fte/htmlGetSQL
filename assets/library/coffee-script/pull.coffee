@@ -69,4 +69,6 @@ $.parser_values_request = (me, data, val) -> #recebe função
     # cria object 'process' trasportador de valores
     process =  {}
 
+    # caso não seja uma sequencia de valores '[object Object]' com uma solicitação de tipo de valor
+    if !data or (!data+'') is '[object Object]' #quando val: objeto
 
