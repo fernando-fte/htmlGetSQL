@@ -88,3 +88,17 @@ $.parser_values_request = (me, data, val) -> #recebe função
 
         # cria contador
         count = 0
+
+        # faz repetição com a conta em 'copile.length'
+        while count < copile.length
+            $.each copile[count], (key, val) ->
+                # definições para os valores
+                process.me  = me
+                process.type = key
+                process.val = val
+
+                # processo os valores na sub-função
+                f_parser_values_request process
+
+            # acrecento no loop
+            count++
