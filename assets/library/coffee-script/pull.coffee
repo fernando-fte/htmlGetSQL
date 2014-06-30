@@ -2,6 +2,7 @@
 # APLICAÇÃO DE TRATAMENTO DAS SOLICITAÇÃO VIA JSON VINDA DO BANCO #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # recebe e trata os valores de solicitação e resposta
 $.parser_values_request = (me, data, val) -> #recebe função
 
@@ -102,3 +103,8 @@ $.parser_values_request = (me, data, val) -> #recebe função
 
             # acrecento no loop
             count++
+
+# Fim de "recebe e trata os valores de solicitação e resposta"
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
