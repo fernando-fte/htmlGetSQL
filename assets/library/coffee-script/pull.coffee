@@ -185,3 +185,6 @@ $.extract_object_value = (data, parametro) ->
                 parametro_.estrutura = parametro.estrutura+'["'+key+'"]' if parametro.estrutura # controi a arvore de acesso
                 parametro_.estrutura = '["'+key+'"]' if parametro.estrutura && parametro.estrutura is 'estrutura'
                 # # #
+
+                #Retorna todos os valores a uma NOVA FUNCAO
+                $.extract_object_value data, parametro_
