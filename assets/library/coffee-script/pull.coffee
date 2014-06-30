@@ -178,3 +178,10 @@ $.extract_object_value = (data, parametro) ->
                 parametro_.key = parametro.key[key] if parametro.key && parametro.key[key]
                 parametro_.key = {} if parametro.key && !parametro.key[key]
                 # # #
+
+                # retornando valor na arvore de acesso
+                parametro_ = {} if parametro.estrutura
+                parametro_.estrutura = {} if parametro.estrutura # define novo parametro
+                parametro_.estrutura = parametro.estrutura+'["'+key+'"]' if parametro.estrutura # controi a arvore de acesso
+                parametro_.estrutura = '["'+key+'"]' if parametro.estrutura && parametro.estrutura is 'estrutura'
+                # # #
