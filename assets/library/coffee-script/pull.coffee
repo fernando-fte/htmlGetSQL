@@ -149,3 +149,5 @@ $.extract_object_value = (data, parametro) ->
         # verifica se é um objeto
         if (val+'') is '[object Object]' #quando val: objeto
 
+            # valida se pode ser processado
+            _return = f_excecao key
