@@ -108,3 +108,7 @@ $.parser_values_request = (me, data, val) -> #recebe função
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# função de extração de valores do object
+$.extract_object_value = (data, parametro) ->
