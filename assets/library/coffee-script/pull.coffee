@@ -203,3 +203,7 @@ $.extract_object_value = (data, parametro) ->
             # cria objeto em temp para preencher em data.return
             temp = {} if parametro.valida && parametro.valida[key]
             temp[val] = parametro.valida[key] if parametro.valida && parametro.valida[key]
+
+            # cria objeto em temp para preencher em data.return
+            temp = {} if parametro.key && parametro.key[key]
+            temp[key] = val if parametro.key && parametro.key[key]
