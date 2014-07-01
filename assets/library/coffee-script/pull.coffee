@@ -236,4 +236,7 @@ $.extract_object_value = (data, parametro) ->
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # recebe valores do html e trata os valores e aplica tratamentos
 $.pull_values = (html) ->
-
+    # # # # #
+    # # Descreve valores recebidos em '$.pull_values = (html) ->'
+    # html   = o HTML deve ser passado com um object dom '$(document)'
+    # # # # #
