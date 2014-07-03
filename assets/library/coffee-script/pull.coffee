@@ -271,3 +271,4 @@ $.pull_values = (html) ->
 
         # define em 'pull' a posição atual 
         pull[temp['position']] = {} # define template na posição atual
+        pull[temp['position']].pull = {} # define template.pull na posição atual
