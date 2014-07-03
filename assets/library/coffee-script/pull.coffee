@@ -353,3 +353,6 @@ $.pull_values = (html) ->
 
                 #acrecento nesta posicao
                 temp['count'][temp['position']]++
+
+            # exclui o temp return
+            delete temp['return']
