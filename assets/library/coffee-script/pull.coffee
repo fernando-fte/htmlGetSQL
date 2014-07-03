@@ -285,3 +285,6 @@ $.pull_values = (html) ->
 
         # defino o valor em data o tipo de template /child/me/gallery/
         pull[temp['position']].data = pull[temp['position']].this.data("template")
+
+        # valida o tipo de solicitação quando vier de um update
+        if pull[temp['position']].this.data('push') # caso seja de um formulário tipo data-push
