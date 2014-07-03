@@ -259,3 +259,6 @@ $.pull_values = (html) ->
 
     # # # # #
     # Inicia a aplição da função $.pull_values
+
+    # conta quantas incidencias de data-template existem e adiciono em .count
+    pull.count = html.find("[data-template]").size()
