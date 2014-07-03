@@ -330,3 +330,6 @@ $.pull_values = (html) ->
 
             # defino os objetos a ser preenchidos
             pull[temp['position']].childs.contents = pull[temp['position']].this.find('[data-template-value]')
+
+            # conto quantas incidencias
+            pull[temp['position']].childs.count = pull[temp['position']].childs.contents.size()
