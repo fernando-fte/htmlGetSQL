@@ -356,3 +356,7 @@ $.pull_values = (html) ->
 
             # exclui o temp return
             delete temp['return']
+
+        # Fim de 'quando 'pull' for do tipo 'child', e o tratamento for para os elementos filhos'
+        # #
+
