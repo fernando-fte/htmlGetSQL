@@ -294,3 +294,7 @@ $.pull_values = (html) ->
 
                 # loop para aplicar conforme a solicitação (update|recuver)
                 pull[temp['position']].pull.status = pull[temp['position']].this.data('push').type
+
+
+        # # # # #
+        # trata os parametros tratados, e manipula o dom
