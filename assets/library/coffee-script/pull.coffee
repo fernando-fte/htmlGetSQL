@@ -291,3 +291,6 @@ $.pull_values = (html) ->
 
             # verifica se o push possui type
             if pull[temp['position']].this.data('push').type # caso exista type
+
+                # loop para aplicar conforme a solicitação (update|recuver)
+                pull[temp['position']].pull.status = pull[temp['position']].this.data('push').type
