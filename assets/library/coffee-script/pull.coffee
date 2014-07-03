@@ -240,3 +240,6 @@ $.pull_values = (html) ->
     # # Descreve valores recebidos em '$.pull_values = (html) ->'
     # html   = o HTML deve ser passado com um object dom '$(document)'
     # # # # #
+
+    # # # # # # # # # # # # # #
+    # Define objetos globais
