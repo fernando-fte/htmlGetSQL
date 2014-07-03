@@ -298,3 +298,7 @@ $.pull_values = (html) ->
 
         # # # # #
         # trata os parametros tratados, e manipula o dom
+
+        # #
+        # quando 'pull' for do tipo 'me', e o tratamento for para o elemento atual
+        if pull[temp['position']].data is "me"
