@@ -339,3 +339,5 @@ $.pull_values = (html) ->
 
             # cria laço para selecionar cada elemento filho
             while temp['count'][temp['position']] < pull[temp['position']].childs.count
+                # defino child em this no momento atual
+                pull[temp['position']].childs.contents[temp['count'][temp['position']]].this = pull[temp['position']].childs.contents.eq(temp['count'][temp['position']])
