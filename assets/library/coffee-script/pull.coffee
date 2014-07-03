@@ -268,3 +268,6 @@ $.pull_values = (html) ->
 
         # # # # #
         # define os parametros para o processamento dos dados
+
+        # define em 'pull' a posição atual 
+        pull[temp['position']] = {} # define template na posição atual
