@@ -308,3 +308,6 @@ $.pull_values = (html) ->
 
             # defino em 'pull["position"].values' os valores de 'template-data'
             pull[temp['position']].this.values = pull[temp['position']].this.data('template-value')
+
+            # valida se foi recebido algo do php, para processar os valores
+            if temp['return']
