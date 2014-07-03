@@ -246,3 +246,6 @@ $.pull_values = (html) ->
 
     # temp 
     temp = {}
+
+    # define position em temp e adiciona zero
+    temp.position = 0
