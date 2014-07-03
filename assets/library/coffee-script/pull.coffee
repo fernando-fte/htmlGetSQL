@@ -311,3 +311,6 @@ $.pull_values = (html) ->
 
             # valida se foi recebido algo do php, para processar os valores
             if temp['return']
+
+                # repassa para a função processar e aplicar os valores
+                $.parser_values_request pull[temp['position']].this, pull[temp['position']].this.values, temp['return']['0']
