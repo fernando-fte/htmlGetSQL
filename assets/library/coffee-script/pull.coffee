@@ -288,3 +288,6 @@ $.pull_values = (html) ->
 
         # valida o tipo de solicitação quando vier de um update
         if pull[temp['position']].this.data('push') # caso seja de um formulário tipo data-push
+
+            # verifica se o push possui type
+            if pull[temp['position']].this.data('push').type # caso exista type
