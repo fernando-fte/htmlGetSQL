@@ -317,3 +317,7 @@ $.pull_values = (html) ->
         #
         # Fim de 'quando 'pull' for do tipo 'me', e o tratamento for para o elemento atual'
         # #
+
+        # #
+        # quando 'pull' for do tipo 'child', e o tratamento for para os elementos filhos
+        else if pull[temp['position']].data is "child"
