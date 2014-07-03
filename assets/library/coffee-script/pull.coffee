@@ -278,3 +278,6 @@ $.pull_values = (html) ->
 
         # define o tipo de conexãom por padrão select
         pull[temp['position']].pull.type = 'select' # seleciona
+
+        # seleciona os dados para conexão
+        pull[temp['position']].pull.table  = pull[temp['position']].this.data("pull-table")  # tabela
