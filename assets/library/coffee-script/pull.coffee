@@ -333,3 +333,6 @@ $.pull_values = (html) ->
 
             # conto quantas incidencias
             pull[temp['position']].childs.count = pull[temp['position']].childs.contents.size()
+
+            # define contador apartie da posição atual e adiciona zero
+            temp['count'][temp['position']] = 0 # acrecento em zero
