@@ -324,3 +324,6 @@ $.pull_values = (html) ->
 
             # seleciona os valores do banco de dados
             temp['return'] = $.submt_post pull[temp['position']].pull
+
+            # seleciona onde vaiser acrecentado os dados
+            pull[temp['position']].childs = {} # define template.values para valor de cada item
