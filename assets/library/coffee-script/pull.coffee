@@ -252,3 +252,6 @@ $.pull_values = (html) ->
 
     # define object 'count' dentro de temp
     temp.count = {}
+
+    # define 'pull' como um [object Object], para receber parametros
+    pull = {}
