@@ -262,3 +262,6 @@ $.pull_values = (html) ->
 
     # conta quantas incidencias de data-template existem e adiciono em .count
     pull.count = html.find("[data-template]").size()
+
+    # pega cada ocorrencia de [data-template] em loop
+    while temp['position'] < pull.count
