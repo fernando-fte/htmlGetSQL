@@ -350,3 +350,6 @@ $.pull_values = (html) ->
 
                     #repasso apra a função processar e aplicar os valores
                     $.parser_values_request pull[temp['position']].childs.contents[temp['count'][temp['position']]].this, pull[temp['position']].childs.contents[temp['count'][temp['position']]].values, temp['return']['0']
+
+                #acrecento nesta posicao
+                temp['count'][temp['position']]++
