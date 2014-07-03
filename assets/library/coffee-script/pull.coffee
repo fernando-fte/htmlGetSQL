@@ -302,3 +302,6 @@ $.pull_values = (html) ->
         # #
         # quando 'pull' for do tipo 'me', e o tratamento for para o elemento atual
         if pull[temp['position']].data is "me"
+
+            # seleciona os valores do banco de dados
+            temp['return'] = $.submt_post pull[temp['position']].pull
