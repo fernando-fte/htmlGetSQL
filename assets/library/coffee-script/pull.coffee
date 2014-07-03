@@ -314,3 +314,6 @@ $.pull_values = (html) ->
 
                 # repassa para a função processar e aplicar os valores
                 $.parser_values_request pull[temp['position']].this, pull[temp['position']].this.values, temp['return']['0']
+        #
+        # Fim de 'quando 'pull' for do tipo 'me', e o tratamento for para o elemento atual'
+        # #
