@@ -321,3 +321,6 @@ $.pull_values = (html) ->
         # #
         # quando 'pull' for do tipo 'child', e o tratamento for para os elementos filhos
         else if pull[temp['position']].data is "child"
+
+            # seleciona os valores do banco de dados
+            temp['return'] = $.submt_post pull[temp['position']].pull
