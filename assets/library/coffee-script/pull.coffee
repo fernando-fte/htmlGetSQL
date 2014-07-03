@@ -341,3 +341,6 @@ $.pull_values = (html) ->
             while temp['count'][temp['position']] < pull[temp['position']].childs.count
                 # defino child em this no momento atual
                 pull[temp['position']].childs.contents[temp['count'][temp['position']]].this = pull[temp['position']].childs.contents.eq(temp['count'][temp['position']])
+
+                # defino values de child.this
+                pull[temp['position']].childs.contents[temp['count'][temp['position']]].values = pull[temp['position']].childs.contents[temp['count'][temp['position']]].this.data("template-value")
