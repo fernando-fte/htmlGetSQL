@@ -275,3 +275,6 @@ $.pull_values = (html) ->
 
         # defino em 'this' no momento atual o data-template
         pull[temp['position']].this = html.find("[data-template]").eq(temp['position'])
+
+        # define o tipo de conexãom por padrão select
+        pull[temp['position']].pull.type = 'select' # seleciona
