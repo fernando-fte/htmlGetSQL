@@ -255,3 +255,7 @@ $.pull_values = (html) ->
 
     # define 'pull' como um [object Object], para receber parametros
     pull = {}
+
+
+    # # # # #
+    # Inicia a aplição da função $.pull_values
