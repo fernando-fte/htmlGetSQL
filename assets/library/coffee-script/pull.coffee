@@ -282,3 +282,6 @@ $.pull_values = (html) ->
         # seleciona os dados para conexão
         pull[temp['position']].pull.table  = pull[temp['position']].this.data("pull-table")  # tabela
         pull[temp['position']].pull.select = pull[temp['position']].this.data("pull-select") # parametros
+
+        # defino o valor em data o tipo de template /child/me/gallery/
+        pull[temp['position']].data = pull[temp['position']].this.data("template")
