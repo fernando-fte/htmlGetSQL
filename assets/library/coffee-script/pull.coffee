@@ -336,3 +336,6 @@ $.pull_values = (html) ->
 
             # define contador apartie da posição atual e adiciona zero
             temp['count'][temp['position']] = 0 # acrecento em zero
+
+            # cria laço para selecionar cada elemento filho
+            while temp['count'][temp['position']] < pull[temp['position']].childs.count
