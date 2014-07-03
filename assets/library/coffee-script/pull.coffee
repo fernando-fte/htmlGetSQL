@@ -265,3 +265,6 @@ $.pull_values = (html) ->
 
     # pega cada ocorrencia de [data-template] em loop
     while temp['position'] < pull.count
+
+        # # # # #
+        # define os parametros para o processamento dos dados
