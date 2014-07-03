@@ -249,3 +249,6 @@ $.pull_values = (html) ->
 
     # define position em temp e adiciona zero
     temp.position = 0
+
+    # define object 'count' dentro de temp
+    temp.count = {}
