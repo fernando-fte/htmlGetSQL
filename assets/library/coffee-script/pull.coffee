@@ -327,3 +327,6 @@ $.pull_values = (html) ->
 
             # seleciona onde vaiser acrecentado os dados
             pull[temp['position']].childs = {} # define template.values para valor de cada item
+
+            # defino os objetos a ser preenchidos
+            pull[temp['position']].childs.contents = pull[temp['position']].this.find('[data-template-value]')
