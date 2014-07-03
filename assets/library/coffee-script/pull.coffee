@@ -305,3 +305,6 @@ $.pull_values = (html) ->
 
             # seleciona os valores do banco de dados
             temp['return'] = $.submt_post pull[temp['position']].pull
+
+            # defino em 'pull["position"].values' os valores de 'template-data'
+            pull[temp['position']].this.values = pull[temp['position']].this.data('template-value')
