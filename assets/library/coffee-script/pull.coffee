@@ -344,3 +344,6 @@ $.pull_values = (html) ->
 
                 # defino values de child.this
                 pull[temp['position']].childs.contents[temp['count'][temp['position']]].values = pull[temp['position']].childs.contents[temp['count'][temp['position']]].this.data("template-value")
+
+                # valida se foi recebido algo do php, para processar os valores
+                if temp['return']
