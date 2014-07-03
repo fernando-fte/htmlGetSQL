@@ -243,3 +243,6 @@ $.pull_values = (html) ->
 
     # # # # # # # # # # # # # #
     # Define objetos globais
+
+    # temp 
+    temp = {}
