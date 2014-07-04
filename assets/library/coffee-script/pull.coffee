@@ -366,3 +366,6 @@ $.pull_values = (html) ->
 
             # define que os resultados nao podem ter limites
             pull[temp['position']].pull.regra = {"limit":""} # limite de respostas
+
+            # seleciona banco de dados
+            temp['return'] = $.submt_post pull[temp['position']].pull
