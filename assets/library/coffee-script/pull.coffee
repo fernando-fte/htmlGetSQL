@@ -369,3 +369,6 @@ $.pull_values = (html) ->
 
             # seleciona banco de dados
             temp['return'] = $.submt_post pull[temp['position']].pull
+
+            # acrecebta em count zero na posicao atual
+            temp['count'][temp['position']] = 0 # acrecento em zero
