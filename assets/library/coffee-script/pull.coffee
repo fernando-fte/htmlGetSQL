@@ -373,7 +373,7 @@ $.pull_values = (html) ->
             # acrecebta em count zero na posicao atual
             temp['count'][temp['position']] = 0 # acrecento em zero
 
-            #defino objeto a ser duplicado como item de galeria
+            #define objeto a ser duplicado como item de galeria
             pull[temp['position']].gallery = {}
             pull[temp['position']].gallery.contents = pull[temp['position']].this.find("[data-template-gallery]")
 
@@ -391,5 +391,6 @@ $.pull_values = (html) ->
             ## preencho os conteudos de cada galeria ##
             #redefino que count naposicao atual e um objeto
             temp['count'][temp['position']] = {}
-            # defino que count tem galery
+
+            # define que count tem galery
             temp['count'][temp['position']]['gallery'] = 0 # acrecento em zero
