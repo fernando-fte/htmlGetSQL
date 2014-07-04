@@ -391,3 +391,5 @@ $.pull_values = (html) ->
             ## preencho os conteudos de cada galeria ##
             #redefino que count naposicao atual e um objeto
             temp['count'][temp['position']] = {}
+            # defino que count tem galery
+            temp['count'][temp['position']]['gallery'] = 0 # acrecento em zero
