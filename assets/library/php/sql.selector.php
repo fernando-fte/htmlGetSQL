@@ -264,4 +264,109 @@ function insert($tabela, $dados){
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# função de tratamento para valores do tipo 'update'
+#
+function update($tabela, $dados, $regra){
+    # # # # #
+    # # Descreve valores recebidos de "update($tabela, $dados, $regra){}"
+    # $tabela = 'nome-da-tabela'; // tabela a ser consultada
+    # $dados  = array('ID' => '3', 'autor' => 'Nome 3 que passa para 4', 'sobre' => 'Sobre o Nome 3 que passa para oi'); // dados a serem alterados conforme a tabela
+    # $regra  =  '3'; // ID item a ser atualizado OU
+    # $regra  =  array('WHERE ID=' => $id, LIMIT  => '1'); // regra para seleção da linha a ser atualizado
+    # #
+    # solicitação: "update($tabela, $dados, $regra);";
+    # # # # #
+
+    # # # # #
+    # Tratamento dos valores da função
+
+    # seleciona o valor do nome dos campos da array $campos
+    $arrCampo = array_keys($dados);
+    
+    # seleciona o valor dentro dos campos da array $campos
+    $arrValores = array_values($dados);
+
+    # contar a quantidade de campos array possui quanto aos ['campos']
+    $numCampo = count($arrCampo);
+
+    # contar a quantidade de campos array possui quanto aos ['dados']
+    $numValores = count($arrValores);
+
+
+
+    # # # # #
+    # Inicia aplicação da função
+
+    # #
+    # verifica se os campos repassados são válidos, para o processamento
+    if($numCampo == $numValores && $tabela != '' && $numValores > '0') {
+
+        # define que o tipo de seleção de banco será UPDATE, e define a tabela a ser acrecentada
+        $sql = 'UPDATE '.$tabela.' SET ';
+
+        # laço para atribuir as regras relacionada aos valores
+        for ($i='0'; $i < $numCampo ; $i++) { 
+
+            # acrecenta em "$sql" as regras e valores
+            $sql .= '`'.$arrCampo[$i].'` = \''.addslashes($arrValores[$i]).'\', ';
+        }
+
+        # remove os ultimos espaços do parametro dentro de "$sql"
+        $sql = substr_replace($sql, '', '-2', '1');
+
+        # #
+        # valida quando a regra seja uma array com valores variados
+        if (is_array($regra)) {
+
+            # seleciona o valor do nome dos campos da array $regra
+            $arrRegraCampo = array_keys($regra);
+            
+            # seleciona o valor dentro dos campos da array $regra
+            $arrRegraValores = array_values($regra);
+
+            # contar a quantidade de campos array possui quanto aos [campos] de $campos
+            $numRegraCampo = count($arrRegraCampo);
+
+            # contar a quantidade de campos array possui quanto aos [dados] de $campos
+            $numRegraValores = count($arrRegraValores);
+
+            # laço para configurar os campos e as regras
+            for ($i='0'; $i < $numRegraCampo; $i++) {
+
+                # acrecenta em "$sql" os campos e valores
+                $sql .= $arrRegraCampo[$i].' '.$arrRegraValores[$i].' ';
+            }
+
+        } # if (is_array($regra)) {
+
+        # caso a regra seja uma string com o valor de id
+        else {
+
+            # acrecenta em "$sql" que a seleção será em id e o valor para este
+            $sql .= 'WHERE Id='.$id;
+        }
+        # Fim de "valida quando a regra seja uma array com valores variados"
+        # #
+
+        # envia os parametros direto a função responsavel pela interação com o banco de dados
+        query($sql); 
+
+    } # if($numCampo == $numValores && $tabela != '' && $numValores > '0') 
+
+    # caso não algun dos argumentos não sejam válidos
+    else {
+        echo '
+        Incompatibilidade com um dos campos que exigem arrays, veja a requisição deste objeto.
+        <br>
+        <a href="?api=functions->sql->update->param">Consulte a api</a>
+        ';
+    }
+    # Fim de "verifica se os campos repassados são válidos, para o processamento"
+    # #
+}
+#
+# Fim de "função de tratamento para valores do tipo 'update'"
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 ?>
