@@ -376,3 +376,6 @@ $.pull_values = (html) ->
             #defino objeto a ser duplicado como item de galeria
             pull[temp['position']].gallery = {}
             pull[temp['position']].gallery.contents = pull[temp['position']].this.find("[data-template-gallery]")
+
+            # loop para duplicar os itens da galeria #
+            while temp['count'][temp['position']] < (temp['return'].length-1)
