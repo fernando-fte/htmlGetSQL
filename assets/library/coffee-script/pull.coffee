@@ -360,3 +360,6 @@ $.pull_values = (html) ->
         # Fim de 'quando 'pull' for do tipo 'child', e o tratamento for para os elementos filhos'
         # #
 
+        # #
+        # quando 'pull' for do tipo 'gallery', e o tratamento for para um loop baseado na quandidade de resultados
+        else if pull[temp['position']].data is "gallery"
