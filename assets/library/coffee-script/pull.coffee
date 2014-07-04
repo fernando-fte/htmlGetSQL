@@ -363,3 +363,6 @@ $.pull_values = (html) ->
         # #
         # quando 'pull' for do tipo 'gallery', e o tratamento for para um loop baseado na quandidade de resultados
         else if pull[temp['position']].data is "gallery"
+
+            # define que os resultados nao podem ter limites
+            pull[temp['position']].pull.regra = {"limit":""} # limite de respostas
