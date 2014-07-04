@@ -429,3 +429,6 @@ $.pull_values = (html) ->
 
                     # acrecento no contador de filhos
                     temp['count'][temp['position']]['child']++
+
+                # acrecento no contador de galeria
+                temp['count'][temp['position']]['gallery']++
