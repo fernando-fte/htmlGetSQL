@@ -417,3 +417,6 @@ $.pull_values = (html) ->
 
                 # repito aplicação dos valores para
                 while temp['count'][temp['position']]['child'] < pull[temp['position']].gallery.childs.count
+
+                    # defino child em this no momento atual
+                    pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this = pull[temp['position']].gallery.childs.contents.eq(temp['count'][temp['position']]['child'])
