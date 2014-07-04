@@ -372,3 +372,6 @@ $.pull_values = (html) ->
 
             # acrecebta em count zero na posicao atual
             temp['count'][temp['position']] = 0 # acrecento em zero
+
+            #defino objeto a ser duplicado como item de galeria
+            pull[temp['position']].gallery = {}
