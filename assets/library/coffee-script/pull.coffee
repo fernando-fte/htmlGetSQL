@@ -404,3 +404,6 @@ $.pull_values = (html) ->
 
                 # defino em this eu no momento atual
                 pull[temp['position']].gallery.this = pull[temp['position']].gallery.eq(temp['count'][temp['position']]['gallery'])
+
+                # defino em contents filhos
+                pull[temp['position']].gallery.childs = {}
