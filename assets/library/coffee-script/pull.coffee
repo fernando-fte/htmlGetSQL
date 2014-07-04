@@ -397,3 +397,4 @@ $.pull_values = (html) ->
 
             # redefino galeria todos os galery
             pull[temp['position']].gallery = {}
+            pull[temp['position']].gallery = pull[temp['position']].this.find("[data-template-gallery]")
