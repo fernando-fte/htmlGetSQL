@@ -385,3 +385,4 @@ $.pull_values = (html) ->
                 
                 #adiciono ao final do loop
                 temp['count'][temp['position']]++ 
+                # fim de loop
