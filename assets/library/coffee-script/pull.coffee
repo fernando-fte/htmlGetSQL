@@ -398,3 +398,6 @@ $.pull_values = (html) ->
             # redefino galeria todos os galery
             pull[temp['position']].gallery = {}
             pull[temp['position']].gallery = pull[temp['position']].this.find("[data-template-gallery]")
+
+            # loop para gallery, selecionando cada incidente
+            while temp['count'][temp['position']]['gallery'] < temp['return'].length
