@@ -407,3 +407,6 @@ $.pull_values = (html) ->
 
                 # defino em contents filhos
                 pull[temp['position']].gallery.childs = {}
+
+                # defino conteudo de filhos
+                pull[temp['position']].gallery.childs.contents = pull[temp['position']].gallery.this.find("[data-template-value]")
