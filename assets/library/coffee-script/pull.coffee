@@ -382,3 +382,6 @@ $.pull_values = (html) ->
 
                 #clono template-gallery
                 (pull[temp['position']].gallery.contents).clone().appendTo(pull[temp['position']].this)
+                
+                #adiciono ao final do loop
+                temp['count'][temp['position']]++ 
