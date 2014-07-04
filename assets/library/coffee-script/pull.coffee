@@ -432,3 +432,5 @@ $.pull_values = (html) ->
 
                 # acrecento no contador de galeria
                 temp['count'][temp['position']]['gallery']++
+
+        temp['position']++ #adiciono ao final do loop
