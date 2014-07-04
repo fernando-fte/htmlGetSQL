@@ -356,7 +356,7 @@ $.pull_values = (html) ->
 
             # exclui o temp return
             delete temp['return']
-
+        #
         # Fim de 'quando 'pull' for do tipo 'child', e o tratamento for para os elementos filhos'
         # #
 
@@ -432,8 +432,11 @@ $.pull_values = (html) ->
 
                 # acrecento no contador de galeria
                 temp['count'][temp['position']]['gallery']++
-
+        #
         # Fim de 'quando 'pull' for do tipo 'gallery', e o tratamento for para um loop baseado na quandidade de resultados'
         # #
 
         temp['position']++ #adiciono ao final do loop
+#
+# Fim de "recebe valores do html e trata os valores e aplica tratamentos"
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
