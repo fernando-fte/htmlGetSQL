@@ -394,3 +394,6 @@ $.pull_values = (html) ->
 
             # define que count tem galery
             temp['count'][temp['position']]['gallery'] = 0 # acrecento em zero
+
+            # redefino galeria todos os galery
+            pull[temp['position']].gallery = {}
