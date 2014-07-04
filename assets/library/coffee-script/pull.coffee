@@ -434,3 +434,5 @@ $.pull_values = (html) ->
                 temp['count'][temp['position']]['gallery']++
         # #
         # Fim de 'quando 'pull' for do tipo 'gallery', e o tratamento for para um loop baseado na quandidade de resultados'
+
+        temp['position']++ #adiciono ao final do loop
