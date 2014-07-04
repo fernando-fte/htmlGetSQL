@@ -386,3 +386,8 @@ $.pull_values = (html) ->
                 #adiciono ao final do loop
                 temp['count'][temp['position']]++ 
                 # fim de loop
+
+
+            ## preencho os conteudos de cada galeria ##
+            #redefino que count naposicao atual e um objeto
+            temp['count'][temp['position']] = {}
