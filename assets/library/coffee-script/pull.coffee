@@ -410,3 +410,4 @@ $.pull_values = (html) ->
 
                 # defino conteudo de filhos
                 pull[temp['position']].gallery.childs.contents = pull[temp['position']].gallery.this.find("[data-template-value]")
+                pull[temp['position']].gallery.childs.count    = pull[temp['position']].gallery.childs.contents.size()
