@@ -426,3 +426,6 @@ $.pull_values = (html) ->
 
                     # repasso para a função preencher os dados
                     $.parser_values_request pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this, pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].values, temp['return'][temp['count'][temp['position']]['gallery']]
+
+                    # acrecento no contador de filhos
+                    temp['count'][temp['position']]['child']++
