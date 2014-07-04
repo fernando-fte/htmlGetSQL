@@ -179,4 +179,89 @@ function select($tabela, $campos, $regra){
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# função de tratamento para valores do tipo 'insert'
+#
+function insert($tabela, $dados){
+    # # # # #
+    # # Descreve valores recebidos de "insert($tabela, $dados){}"
+    # $tabela = 'nome-da-tabela'; // Tabela a ser consultada
+    # $dados  = array('nome-da-coluna' => 'dado'); // dados a serem inseridos
+    # #
+    # solicitação: "insert($tabela, $dados);";
+    # # # # #
+
+    # # # # #
+    # Tratamento dos valores da função
+
+    # seleciona o valor do nome dos campos da array $campos
+    $arrCampo = array_keys($dados);
+    
+    # seleciona o valor dentro dos campos da array $campos
+    $arrValores = array_values($dados);
+
+    # contar a quantidade de campos array possui quanto aos ['campos']
+    $numCampo = count($arrCampo);
+
+    # contar a quantidade de campos array possui quanto aos ['dados']
+    $numValores = count($arrValores);
+
+
+
+    # # # # #
+    # Inicia aplicação da função
+
+    # #
+    # verifica se os campos repassados são válidos, para o processamento
+    if($numCampo == $numValores && $numCampo > '0'){
+
+        # define que o tipo de seleção de banco será INSERT, e define a tabela a ser acrecentada
+        $sql = 'INSERT INTO '.$tabela.' (';
+
+        # laço para acrecentar os campos a serem acrecentados na ordem certa
+        foreach ($arrCampo as $campo) {
+
+            # acrecenta em "$sql" os valores dos campos
+            $sql .= '`'.$campo.'`, ';
+        }
+
+        # acrecenta em "$sql" o final do as regras
+        $sql = substr_replace($sql, ') ', -2, 1);
+
+        # # # #    
+
+        # acrecenta em "$sql" o inicio de VALUES, da regra
+        $sql .= 'VALUES (';
+
+        # laço para acrecentar para processar os valores a serem inseridos
+        foreach ($arrValores as $valores) {
+
+            # acrecenta em "$sql" os valores dos campos
+            $sql .= '\''.$valores.'\', ';
+        }
+
+        # acrecenta em "$sql" o fim de VALUES, da regra
+        $sql = substr_replace($sql, ')', -2, 1);
+
+        # envia os parametros direto a função responsavel pela interação com o banco de dados
+        query($sql);
+
+    } # if($numCampo == $numValores && $numCampo > '0')
+
+    # caso não algun dos argumentos não sejam válidos
+    else{
+        echo '
+        Incompatibilidade com um dos campos que exigem arrays, veja a requisição deste objeto.
+        <br>
+        <a href="?api=functions->sql->insert->param">Consulte a api</a>
+        ';
+    }
+    # Fim de "verifica se os campos repassados são válidos, para o processamento"
+    # #
+}
+#
+# Fim de "função de tratamento para valores do tipo 'insert'"
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
 ?>
