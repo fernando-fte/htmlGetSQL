@@ -401,3 +401,6 @@ $.pull_values = (html) ->
 
             # loop para gallery, selecionando cada incidente
             while temp['count'][temp['position']]['gallery'] < temp['return'].length
+
+                # defino em this eu no momento atual
+                pull[temp['position']].gallery.this = pull[temp['position']].gallery.eq(temp['count'][temp['position']]['gallery'])
