@@ -414,3 +414,6 @@ $.pull_values = (html) ->
                 
                 # define contador em child na posição atual
                 temp['count'][temp['position']]['child'] = 0
+
+                # repito aplicação dos valores para
+                while temp['count'][temp['position']]['child'] < pull[temp['position']].gallery.childs.count
