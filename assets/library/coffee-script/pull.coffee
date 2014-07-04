@@ -379,3 +379,6 @@ $.pull_values = (html) ->
 
             # loop para duplicar os itens da galeria #
             while temp['count'][temp['position']] < (temp['return'].length-1)
+
+                #clono template-gallery
+                (pull[temp['position']].gallery.contents).clone().appendTo(pull[temp['position']].this)
