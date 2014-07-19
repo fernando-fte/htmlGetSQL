@@ -96,6 +96,8 @@ function f_json_post($post) {
     # valida a array "status" existe
     if(!array_key_exists("status", $post)){
 
+        # determina que "status" é falso
+        $post['status'] = false;
     }
     # Fim de 'valida a array "status"'
     # #
