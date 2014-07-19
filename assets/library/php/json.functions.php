@@ -79,6 +79,13 @@ function f_json_post($post) {
         # Fim de "valida se os valores de "order" estão corretos"
         # #
 
+        # #
+        # valida se há "limit", e este define quantos resultados o banco deve retornar
+        if(!array_key_exists("limit", $post['regra'])) {
+
+        }
+        # valida se há "limit", e este define quantos resultados o banco deve retornar
+        # #
     }
     # Fim de 'trata elementos caso exista a array "regra", valida cada item dentro da mesma '
     # #
