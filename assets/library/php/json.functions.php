@@ -17,6 +17,9 @@ function f_json_post($post) {
         # adiciona na array $post>regra>limit que a resposta do servidor será apenas '1'
         $post['regra']['limit'] = "1";
 
+        # adiciona na array $post>order>to que a busca sera ordenada em "index"
+        $post['regra']['order']['to'] = "index";
+
     }
     # Fim da 'quando não existir a array "regra", adiciona as configurações necessárias'
     # #
