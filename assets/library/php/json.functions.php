@@ -102,6 +102,8 @@ function f_json_post($post) {
     # Fim de 'valida a array "status"'
     # #
 
+    # retorna $post para a função
+    return $post
 }
 # função para validar se as entradas do $_POST são corretas
 # # # # #
