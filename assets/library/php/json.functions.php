@@ -92,6 +92,13 @@ function f_json_post($post) {
     # Fim de 'trata elementos caso exista a array "regra", valida cada item dentro da mesma '
     # #
 
+    # #
+    # valida a array "status" existe
+    if(!array_key_exists("status", $post)){
+
+    }
+    # Fim de 'valida a array "status"'
+    # #
 
 }
 # função para validar se as entradas do $_POST são corretas
