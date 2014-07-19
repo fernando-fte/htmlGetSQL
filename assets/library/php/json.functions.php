@@ -60,6 +60,8 @@ function f_json_post($post) {
             # valida se há "order>to"
             if(!array_key_exists("to", $post['regra']['order'])) {
 
+                # adiciona na array $post>order>to que a busca sera ordenada em "index"
+                $post['regra']['order']['to'] = "index";
             }
             # Fim de 'valida se há "order>to"'
             # #
