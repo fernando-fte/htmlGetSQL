@@ -13,7 +13,9 @@ function f_json_post($post) {
 
         # adiciona na array $post>regra>where o valor que a busca é fixa (LIKE | LIKE%)
         $post['regra']['where'] = "LIKE";
-
+        
+        # adiciona na array $post>regra>limit que a resposta do servidor será apenas '1'
+        $post['regra']['limit'] = "1";
 
     }
     # Fim da 'quando não existir a array "regra", adiciona as configurações necessárias'
