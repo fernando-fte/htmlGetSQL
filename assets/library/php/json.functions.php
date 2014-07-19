@@ -29,6 +29,13 @@ function f_json_post($post) {
     # #
     # trata elementos caso exista a array "regra", valida cada item dentro da mesma 
     else {
+        # #
+        # valida "where" que estabelece a seleção
+        if(!array_key_exists("where", $post['regra'])) {
+
+        }
+        # Fim de 'valida "where" que estabelece a seleção'
+        # #
 
     }
     # Fim de 'trata elementos caso exista a array "regra", valida cada item dentro da mesma '
