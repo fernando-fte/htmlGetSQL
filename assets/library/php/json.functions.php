@@ -39,6 +39,16 @@ function f_json_post($post) {
         # Fim de 'valida "where" que estabelece a seleção'
         # #
 
+        # #
+        # valida se há "order" que estabelece a ordem das respostas (que a coluna "X" exibida de 0 -> ∞ ou ∞ -> 0)
+        if(!array_key_exists("order", $post['regra'])) {
+
+
+        }
+        # Fim de 'valida se há "order" que estabelece a ordem das respostas (que a coluna "X" exibida de 0 -> ∞ ou ∞ -> 0)'
+        # #
+
+
     }
     # Fim de 'trata elementos caso exista a array "regra", valida cada item dentro da mesma '
     # #
