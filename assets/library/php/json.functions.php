@@ -33,6 +33,8 @@ function f_json_post($post) {
         # valida "where" que estabelece a seleção
         if(!array_key_exists("where", $post['regra'])) {
 
+            # adiciona na array $post>regra>where o valor que a busca é fixa (LIKE | LIKE%)
+            $post['regra']['where'] = "LIKE";
         }
         # Fim de 'valida "where" que estabelece a seleção'
         # #
