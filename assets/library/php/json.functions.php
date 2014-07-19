@@ -26,6 +26,14 @@ function f_json_post($post) {
     # Fim da 'quando não existir a array "regra", adiciona as configurações necessárias'
     # #
 
+    # #
+    # trata elementos caso exista a array "regra", valida cada item dentro da mesma 
+    else {
+
+    }
+    # Fim de 'trata elementos caso exista a array "regra", valida cada item dentro da mesma '
+    # #
+
 
 }
 # função para validar se as entradas do $_POST são corretas
