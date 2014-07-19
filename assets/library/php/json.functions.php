@@ -52,6 +52,14 @@ function f_json_post($post) {
         # Fim de 'valida se há "order" que estabelece a ordem das respostas (que a coluna "X" exibida de 0 -> ∞ ou ∞ -> 0)'
         # #
 
+        # #
+        # valida se os valores de "order" estão corretos
+        else { 
+
+
+        }
+        # Fim de "valida se os valores de "order" estão corretos"
+        # #
 
     }
     # Fim de 'trata elementos caso exista a array "regra", valida cada item dentro da mesma '
