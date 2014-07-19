@@ -66,6 +66,13 @@ function f_json_post($post) {
             # Fim de 'valida se há "order>to"'
             # #
 
+            # #
+            # valida se há "order>by"
+            if(!array_key_exists("by", $post['regra']['order'])) {
+
+            }
+            # Fim de 'valida se há "order>by"'
+            # #
         }
         # Fim de "valida se os valores de "order" estão corretos"
         # #
