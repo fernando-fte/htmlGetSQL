@@ -70,6 +70,8 @@ function f_json_post($post) {
             # valida se há "order>by"
             if(!array_key_exists("by", $post['regra']['order'])) {
 
+                # adiciona na array $post>order>by que a busca será ordenada do menor para o maior
+                $post['regra']['order']['by'] = "ASC";
             }
             # Fim de 'valida se há "order>by"'
             # #
