@@ -20,6 +20,8 @@ function f_json_post($post) {
         # adiciona na array $post>order>to que a busca sera ordenada em "index"
         $post['regra']['order']['to'] = "index";
 
+        # adiciona na array $post>order>by que a busca será ordenada do menor para o maior
+        $post['regra']['order']['by'] = "ASC";
     }
     # Fim da 'quando não existir a array "regra", adiciona as configurações necessárias'
     # #
