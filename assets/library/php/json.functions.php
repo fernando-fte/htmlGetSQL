@@ -83,6 +83,8 @@ function f_json_post($post) {
         # valida se há "limit", e este define quantos resultados o banco deve retornar
         if(!array_key_exists("limit", $post['regra'])) {
 
+            # adiciona na array $post>regra>limit que a resposta do servidor será apenas '1'
+            $post['regra']['limit'] = "1";
         }
         # valida se há "limit", e este define quantos resultados o banco deve retornar
         # #
