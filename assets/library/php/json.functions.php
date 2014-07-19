@@ -46,6 +46,8 @@ function f_json_post($post) {
             # adiciona na array $post>order>to que a busca sera ordenada em "index"
             $post['regra']['order']['to'] = "index";
 
+            # adiciona na array $post>order>by que a busca será ordenada do menor para o maior
+            $post['regra']['order']['by'] = "ASC";
         }
         # Fim de 'valida se há "order" que estabelece a ordem das respostas (que a coluna "X" exibida de 0 -> ∞ ou ∞ -> 0)'
         # #
