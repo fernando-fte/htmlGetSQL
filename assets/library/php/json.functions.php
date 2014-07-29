@@ -346,7 +346,7 @@ function f_json_post($post) {
     # #
 
     # retorna $post para a função
-    return $post
+    return $post;
 }
 # função para validar se as entradas do $_POST são corretas
 # # # # #

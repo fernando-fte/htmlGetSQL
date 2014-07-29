@@ -18,7 +18,7 @@
         <!-- Container para o conteudo -->
         <section class="container">
             <!-- Título da pagina -->
-            <h1 class="well text-center">Nome da página</h1>
+            <h1 class="well text-center" data-template='me' data-pull-table='tabela' data-pull-select='{"segmento":"page", "grupo":"home", "type":"title"}' data-template-value='{"titulo":"text"}'></h1>
 
             <hr>
 
@@ -108,6 +108,12 @@
 
         <!-- VENDOR: Less - jquery -->
         <script src="assets/vendor/less/less.min.js"></script>
-
+ 
+        <!-- APP: htmlGetSQL - load -->
+        <script type="text/coffeescript" src="assets/library/coffee-script/submit.php.coffee"></script>
+        <script type="text/coffeescript" src="assets/library/coffee-script/pull.coffee"></script>
+        <script type="text/coffeescript">
+            $.pull_values $(document)
+        </script>
     </body>
 </html>

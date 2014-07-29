@@ -7,7 +7,7 @@ $.submt_post = (value) ->
     # Função ajax
     $.ajax(
         type: "post"
-        url: "local.php" #local no php
+        url: "assets/library/php/json.post.php" #local no php
         cache: false
         data: value
         async: false

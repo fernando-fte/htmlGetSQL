@@ -15,7 +15,7 @@ include 'sql.connect.php';
 include 'sql.selector.php';
 
 # inclui funções de apoio
-include 'json.functions.php'
+include 'json.functions.php';
 
 #
 # Fim de "Inclui funções e regras pre-determinadas"
