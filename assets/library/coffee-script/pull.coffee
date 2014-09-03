@@ -261,9 +261,9 @@ $.pull_values = (html) ->
     # Inicia a aplição da função $.pull_values
 
     # conta quantas incidencias de data-template existem e adiciono em .count
-    pull.count = html.find("[data-template]").size()
+    pull.count = html.find("[data-htmlgetsql-pull]").size()
 
-    # pega cada ocorrencia de [data-template] em loop
+    # pega cada ocorrencia de [data-htmlgetsql-pull] em loop
     while temp['position'] < pull.count
 
         # # # # #
@@ -274,17 +274,17 @@ $.pull_values = (html) ->
         pull[temp['position']].pull = {} # define template.pull na posição atual
 
         # defino em 'this' no momento atual o data-template
-        pull[temp['position']].this = html.find("[data-template]").eq(temp['position'])
+        pull[temp['position']].this = html.find("[data-htmlgetsql-pull]").eq(temp['position'])
 
         # define o tipo de conexãom por padrão select
         pull[temp['position']].pull.type = 'select' # seleciona
 
         # seleciona os dados para conexão
-        pull[temp['position']].pull.table  = pull[temp['position']].this.data("pull-table")  # tabela
-        pull[temp['position']].pull.select = pull[temp['position']].this.data("pull-select") # parametros
+        pull[temp['position']].pull.table  = pull[temp['position']].this.data("htmlgetsql-table")  # tabela
+        pull[temp['position']].pull.select = pull[temp['position']].this.data("htmlgetsql-select") # parametros
 
         # defino o valor em data o tipo de template /child/me/gallery/
-        pull[temp['position']].data = pull[temp['position']].this.data("template")
+        pull[temp['position']].data = pull[temp['position']].this.data("htmlgetsql-pull")
 
         # valida o tipo de solicitação quando vier de um update
         if pull[temp['position']].this.data('push') # caso seja de um formulário tipo data-push
@@ -307,7 +307,7 @@ $.pull_values = (html) ->
             temp['return'] = $.submt_post pull[temp['position']].pull
 
             # defino em 'pull["position"].values' os valores de 'template-data'
-            pull[temp['position']].this.values = pull[temp['position']].this.data('template-value')
+            pull[temp['position']].this.values = pull[temp['position']].this.data('htmlgetsql-context-inline')
 
             # valida se foi recebido algo do php, para processar os valores
             if temp['return']
@@ -329,7 +329,7 @@ $.pull_values = (html) ->
             pull[temp['position']].childs = {} # define template.values para valor de cada item
 
             # defino os objetos a ser preenchidos
-            pull[temp['position']].childs.contents = pull[temp['position']].this.find('[data-template-value]')
+            pull[temp['position']].childs.contents = pull[temp['position']].this.find('[data-htmlgetsql-context-inline]')
 
             # conto quantas incidencias
             pull[temp['position']].childs.count = pull[temp['position']].childs.contents.size()
@@ -343,7 +343,7 @@ $.pull_values = (html) ->
                 pull[temp['position']].childs.contents[temp['count'][temp['position']]].this = pull[temp['position']].childs.contents.eq(temp['count'][temp['position']])
 
                 # defino values de child.this
-                pull[temp['position']].childs.contents[temp['count'][temp['position']]].values = pull[temp['position']].childs.contents[temp['count'][temp['position']]].this.data("template-value")
+                pull[temp['position']].childs.contents[temp['count'][temp['position']]].values = pull[temp['position']].childs.contents[temp['count'][temp['position']]].this.data("htmlgetsql-context-inline")
 
                 # valida se foi recebido algo do php, para processar os valores
                 if temp['return']
@@ -409,7 +409,7 @@ $.pull_values = (html) ->
                 pull[temp['position']].gallery.childs = {}
 
                 # defino conteudo de filhos
-                pull[temp['position']].gallery.childs.contents = pull[temp['position']].gallery.this.find("[data-template-value]")
+                pull[temp['position']].gallery.childs.contents = pull[temp['position']].gallery.this.find("[data-htmlgetsql-context-inline]")
                 pull[temp['position']].gallery.childs.count    = pull[temp['position']].gallery.childs.contents.size()
                 
                 # define contador em child na posição atual
@@ -422,7 +422,7 @@ $.pull_values = (html) ->
                     pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this = pull[temp['position']].gallery.childs.contents.eq(temp['count'][temp['position']]['child'])
 
                     # defino values de child.this
-                    pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].values = pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this.data("template-value")
+                    pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].values = pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this.data("htmlgetsql-context-inline")
 
                     # repasso para a função preencher os dados
                     $.parser_values_request pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this, pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].values, temp['return'][temp['count'][temp['position']]['gallery']]
