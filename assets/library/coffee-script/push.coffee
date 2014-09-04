@@ -33,3 +33,6 @@ $.push_values = (html) ->
 
     # adiciona em 'push_>contents'todas as incidencias de ['data-htmlgetsql-push']
     push_.contents = html.find("[data-htmlgetsql-push]")
+
+    # Inicia o tratamento quando .bind for do tipo 'input', quando um texto é modificado
+    push_.contents.bind 'click', ->
