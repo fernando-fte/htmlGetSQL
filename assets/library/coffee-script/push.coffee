@@ -27,3 +27,9 @@ $.push_values = (html) ->
     # define 'push_' como um [object Object], para receber parametros
     push_ = {}
 
+
+    # # # # #
+    # Inicia a aplição da função $.push_values
+
+    # adiciona em 'push_>contents'todas as incidencias de ['data-htmlgetsql-push']
+    push_.contents = html.find("[data-htmlgetsql-push]")
