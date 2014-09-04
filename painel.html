@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">      
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Título -->
+        <title>HTML Get for SQL</title>
+
+        <!-- VENDOR: Bootstrap - css -->
+        <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+        <!-- Container para o conteudo -->
+        <section class="container">
+
+            <form class="form-horizontal">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Formulário</legend>
+
+                    <!-- Título da pagina -->
+                     <div class="form-group">
+                        <input type="text" placeholder="Titulo da pagina" class="form-control input-lg"
+
+                            data-htmlgetsql-pull='me' 
+                            data-htmlgetsql-table='tabela' 
+                            data-htmlgetsql-select='{"index":"1", "segmento":"page", "grupo":"home", "type":"title"}' 
+                            data-htmlgetsql-context-inline='{"titulo":"value"}'
+                        >
+                    </div>
+
+                    <hr>
+
+                    <h3>Entrada</h3>
+                    <!-- Faxada -->
+                    <div class="form-group jumbotron"
+                        data-htmlgetsql-pull='child'
+                        data-htmlgetsql-table='tabela'
+                        data-htmlgetsql-select='{"index":"1", "segmento":"page", "grupo":"home", "type":"jumbotron"}'
+                        >
+
+                        <!-- Faxada: "h1" -->
+                         <input type="text" placeholder="Titulo do jumbotron" class="form-control input-md" 
+                            data-htmlgetsql-context-inline='{"title":"value"}'
+                        >
+
+                        <br>
+
+                        <!-- Faxada: "p" -->
+                         <textarea placeholder="Texto sobre o jumbotron" class="form-control" 
+                            data-htmlgetsql-context-inline='{"about":"text"}'
+                        ></textarea>
+
+                        <br>
+
+                        <div class="form-group well">
+
+                            <!-- Faxada: "a>url" -->
+                             <input type="text" placeholder="Sobre a pagina" class="form-control input-sm" 
+                                data-htmlgetsql-context-inline='{"btn":{"text":"value"}}'
+                            ><br>
+
+                            <!-- Faxada: "a>url" -->
+                             <input type="text" placeholder="Sobre a pagina" class="form-control input-sm" 
+                                data-htmlgetsql-context-inline='{"btn":{"title":"value"}}'
+                            ><br>
+
+                            <!-- Faxada: "a>url" -->
+                             <input type="text" placeholder="Sobre a pagina" class="form-control input-sm" 
+                                data-htmlgetsql-context-inline='{"btn":{"url":"value"}}'
+                            >
+                        </div>
+                    </div>
+
+                    <h3>Notícia</h3>
+                    <!-- Galeria -->
+                    <div class="form-group jumbotron"
+                        data-htmlgetsql-pull='child'
+                        data-htmlgetsql-table='tabela'
+                        data-htmlgetsql-select='{"index":"1", "segmento":"galeria", "grupo":"informacoes", "type":"galeria principal"}'
+                        >
+
+                        <!-- Galeria: "h1" -->
+                         <input type="text" placeholder="Titulo da noticia" class="form-control input-md" 
+                            data-htmlgetsql-context-inline='{"titulo":"value"}'
+                        >
+
+                        <br>
+
+                        <!-- Galeria: "p" -->
+                         <textarea placeholder="Texto sobre a noticia" class="form-control" 
+                            data-htmlgetsql-context-inline='{"sobre":"text"}'
+                        ></textarea>
+
+                        <br>
+
+                        <div class="form-group well">
+
+                            <!-- Galeria: "img>alt" -->
+                             <input type="text" placeholder="Titulo da imagem" class="form-control input-sm" 
+                                data-htmlgetsql-context-inline='{"figura":{"titulo":"value"}}'
+                            ><br>
+
+                            <!-- Galeria: "img>src" -->
+                             <input type="text" placeholder="URL da foto" class="form-control input-sm" 
+                                data-htmlgetsql-context-inline='{"figura":{"img":"value"}}'
+                            ><br>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </section>
+
+        <!-- jQuerys Plugin -->
+        <script src="assets/vendor/jquery/jquery.min.js"></script>
+
+        <!-- VENDOR: Bootstrap - jquery -->
+        <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- VENDOR: Coffee-Script - jquery -->
+        <script src="assets/vendor/coffee-script/coffee-script.min.js"></script>
+
+        <!-- VENDOR: Less - jquery -->
+        <script src="assets/vendor/less/less.min.js"></script>
+ 
+        <!-- APP: htmlGetSQL - load -->
+        <script type="text/coffeescript" src="assets/library/coffee-script/submit.php.coffee"></script>
+        <script type="text/coffeescript" src="assets/library/coffee-script/pull.coffee"></script>
+        <script type="text/coffeescript">
+            $.pull_values $(document)
+        </script>
+    </body>
+</html>
