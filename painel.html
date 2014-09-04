@@ -33,6 +33,9 @@
                             data-htmlgetsql-table='tabela' 
                             data-htmlgetsql-select='{"index":"1", "segmento":"page", "grupo":"home", "type":"title"}' 
                             data-htmlgetsql-context-inline='{"titulo":"value"}'
+
+                            data-htmlgetsql-push='update'
+                            data-htmlgetsql-push-sentings='{"event":"value", "connect":"pull", "context":"value",}'
                         >
                     </div>
 
@@ -134,8 +137,14 @@
         <!-- APP: htmlGetSQL - load -->
         <script type="text/coffeescript" src="assets/library/coffee-script/submit.php.coffee"></script>
         <script type="text/coffeescript" src="assets/library/coffee-script/pull.coffee"></script>
+        <script type="text/coffeescript" src="assets/library/coffee-script/push.coffee"></script>
         <script type="text/coffeescript">
+
+            # invoca a função pull, importando os valores do sql
             $.pull_values $(document)
+
+            # invoca a função push, tratando os valores do formulario
+            $.push_values $(document)
         </script>
     </body>
 </html>
