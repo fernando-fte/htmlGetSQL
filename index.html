@@ -19,7 +19,7 @@
         <section class="container">
             <!-- Título da pagina -->
             <h1 class="well text-center" 
-                -data-htmlgetsql-pull='me' 
+                data-htmlgetsql-pull='me' 
                 data-htmlgetsql-table='tabela' 
                 data-htmlgetsql-select='{"segmento":"page", "grupo":"home", "type":"title"}' 
                 data-htmlgetsql-context-inline='{"titulo":"text"}'
@@ -29,7 +29,7 @@
 
             <!-- Faxada -->
             <article class="jumbotron"
-                -data-htmlgetsql-pull='child'
+                data-htmlgetsql-pull='child'
                 data-htmlgetsql-table='tabela'
                 data-htmlgetsql-select='{"segmento":"page", "grupo":"home", "type":"jumbotron"}'
             >
@@ -39,50 +39,33 @@
             </article>
 
             <!-- Galeria -->
-            <div class="row">
+            <div class="row"
+                data-htmlgetsql-pull='gallery'
+                data-htmlgetsql-table='tabela'
+                data-htmlgetsql-select='{"segmento":"galeria", "grupo":"informacoes", "type":"galeria principal"}'
+            >
 
                 <!-- Galeria item -->
                 <div class="col-xs-6 col-sm-6 col-md-3"
-                    data-htmlgetsql-pull='gallery'
-                    data-htmlgetsql-table='tabela'
-                    data-htmlgetsql-select='{"segmento":"galeria", "grupo":"informacoes", "type":"galeria principal"}'
+                    data-htmlgetsql-gallery='all'
+                    data-htmlgetsql-context-inline='{"titulo":"title"}'
                 >
 
                     <div class="thumbnail">
+
                         <!-- Imagem representativa -->
-                        <img src="http://placehold.it/350x150" alt="...">
+                        <img data-htmlgetsql-context-inline='{"figura":{"titulo":"alt", "img":"src"}}' src="http://placehold.it/350x150" alt="...">
 
                         <!-- Legendas e botões -->
                         <div class="caption">
                         <!-- Título da notícia -->
-                            <h3>Título da notícia 2</h3>
-                            <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here'</p>
+                            <h3 data-htmlgetsql-context-inline='{"titulo":"text"}'></h3>
+                            <p data-htmlgetsql-context-inline='{"sobre":"text"}'></p>
 
                             <!-- Grupo de botão -->
                             <p>
-                                <a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button">Button</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Galeria item -->
-                <div class="col-xs-6 col-sm-6 col-md-3">
-                    <div class="thumbnail">
-                        <!-- Imagem representativa -->
-                        <img src="http://placehold.it/350x150" alt="...">
-
-                        <!-- Legendas e botões -->
-                        <div class="caption">
-                        <!-- Título da notícia -->
-                            <h3>Título da notícia 3</h3>
-                            <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here'</p>
-
-                            <!-- Grupo de botão -->
-                            <p>
-                                <a href="#" class="btn btn-primary" role="button">Button</a>
-                                <a href="#" class="btn btn-default" role="button">Button</a>
+                                <a data-htmlgetsql-context-inline='{"btn1":{"url":"href", "title":"text"}}' href="#" class="btn btn-primary" role="button"></a>
+                                <a data-htmlgetsql-context-inline='{"btn2":{"url":"href", "title":"text"}}' href="#" class="btn btn-primary" role="button"></a>
                             </p>
                         </div>
                     </div>
