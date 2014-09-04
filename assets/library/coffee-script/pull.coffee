@@ -375,12 +375,12 @@ $.pull_values = (html) ->
 
             #define objeto a ser duplicado como item de galeria
             pull[temp['position']].gallery = {}
-            pull[temp['position']].gallery.contents = pull[temp['position']].this.find("[data-template-gallery]")
+            pull[temp['position']].gallery.contents = pull[temp['position']].this.find("[data-htmlgetsql-gallery]")
 
             # loop para duplicar os itens da galeria #
             while temp['count'][temp['position']] < (temp['return'].length-1)
 
-                #clono template-gallery
+                #clono htmlgetsql-gallery
                 (pull[temp['position']].gallery.contents).clone().appendTo(pull[temp['position']].this)
                 
                 #adiciono ao final do loop
@@ -397,7 +397,7 @@ $.pull_values = (html) ->
 
             # redefino galeria todos os galery
             pull[temp['position']].gallery = {}
-            pull[temp['position']].gallery = pull[temp['position']].this.find("[data-template-gallery]")
+            pull[temp['position']].gallery = pull[temp['position']].this.find("[data-htmlgetsql-gallery]")
 
             # loop para gallery, selecionando cada incidente
             while temp['count'][temp['position']]['gallery'] < temp['return'].length
@@ -414,6 +414,17 @@ $.pull_values = (html) ->
                 
                 # define contador em child na posição atual
                 temp['count'][temp['position']]['child'] = 0
+
+
+                # seleciona a partir da raiz da chamada os valores de 'context'
+                if pull[temp['position']].gallery.this.data('htmlgetsql-gallery') is "all"
+
+                    # defino os values da raiz de gallery
+                    pull[temp['position']].gallery.this.values = pull[temp['position']].gallery.this.data('htmlgetsql-context-inline')
+
+                    # repasso para a função preencher os dados
+                    $.parser_values_request pull[temp['position']].gallery.this, pull[temp['position']].gallery.this.values, temp['return'][temp['count'][temp['position']]['gallery']]
+
 
                 # repito aplicação dos valores para
                 while temp['count'][temp['position']]['child'] < pull[temp['position']].gallery.childs.count
