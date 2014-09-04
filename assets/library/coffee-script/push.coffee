@@ -36,3 +36,6 @@ $.push_values = (html) ->
 
     # Inicia o tratamento quando .bind for do tipo 'input', quando um texto é modificado
     push_.contents.bind 'click', ->
+
+        # valido de push>setings>action é do tipo 'click'
+        $(this).data("htmlgetsql-push-sentings").action
