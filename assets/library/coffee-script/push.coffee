@@ -7,4 +7,23 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # recebe valores do html, trata os valores e aplica os tratamentos
 $.push_values = (html) ->
-    console.log 'hello word'
+    # # # # #
+    # # Descreve valores recebidos em '$.pull_values = (html) ->'
+    # html   = o HTML deve ser passado com um object dom '$(document)'
+    # # # # #
+
+    # # # # # # # # # # # # # #
+    # Define objetos globais
+
+    # temp 
+    temp = {}
+
+    # define position em temp e adiciona zero
+    temp.position = 0
+
+    # define object 'count' dentro de temp
+    temp.count = {}
+
+    # define 'push_' como um [object Object], para receber parametros
+    push_ = {}
+
