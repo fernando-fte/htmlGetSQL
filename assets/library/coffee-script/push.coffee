@@ -27,6 +27,10 @@ $.push_values = (html) ->
     # define 'push_' como um [object Object], para receber parametros
     push_ = {}
 
+    # define 'push_>input' como um [object Object], para input
+    push_.input = {}
+
+
 
     # # # # #
     # Inicia a aplição da função $.push_values
@@ -35,7 +39,10 @@ $.push_values = (html) ->
     push_.contents = html.find("[data-htmlgetsql-push]")
 
     # Inicia o tratamento quando .bind for do tipo 'input', quando um texto é modificado
-    push_.contents.bind 'click', ->
+    push_.contents.bind 'input', ->
 
         # valido de push>setings>action é do tipo 'click'
-        $(this).data("htmlgetsql-push-sentings").action
+        if $(this).data("htmlgetsql-push-sentings").action is 'input'
+
+            # adiciona em push_>input>this o documento atual do .bind()
+            push_.input.this = $(this)
