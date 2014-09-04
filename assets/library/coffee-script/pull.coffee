@@ -15,6 +15,10 @@ $.parser_values_request = (me, data, val) -> #recebe função, introdução a ba
             # processa valor e preenche o local indicado
             # ou retorna o valor do local indicado
 
+            when "value" # quando o tipo for value
+                value.me.val(value.val) if !value.return
+                return me.val() if value.return
+
             when "text" # quando o tipo for texto
                 value.me.html(value.val) if !value.return
                 return me.html() if value.return
