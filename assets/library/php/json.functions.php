@@ -112,8 +112,14 @@ function f_json_where($post) {
         # acrecenta em $regra>'WORDER BY ' os dados de ordenação de resultados, recebidos em $post>regra>order
         $regra['ORDER BY '] =  '`'.$post['regra']['order']['to'].'` '.$post['regra']['order']['by'].'';
 
-        # acrecenta em $regra>'LIMIT ' a quantidade de dados a serem retornados, recebido em $post>regra>limit
-        $regra['LIMIT '] =  $post['regra']['limit'];
+
+        # #
+        # adiciona 'LIMIT' caso o valor de $post>regra>limit seja valido ou maior que 0
+        if ($post['regra']['limit'] != false && $post['regra']['limit'] > 0) {
+
+            # acrecenta em $regra>'LIMIT ' a quantidade de dados a serem retornados, recebido em $post>regra>limit
+            $regra['LIMIT '] =  $post['regra']['limit'];
+        }
 
         # apaga $temp na posição atua
         unset($temp);
