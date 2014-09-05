@@ -37,11 +37,12 @@ $.push_values = (html) ->
     # adiciona em 'push_>contents'todas as incidencias de ['data-htmlgetsql-push']
     push_.contents = html.find('[data-htmlgetsql-push]')
 
-    # Inicia o tratamento quando .bind for do tipo 'input', quando um texto é modificado
-    push_.contents.bind 'input', ->
 
-        # valido de push>setings>action é do tipo 'click'
-        if $(this).data('htmlgetsql-push-sentings').action is 'input'
+    # valido de push>setings>action é do tipo 'input', onde bind deve ser ativo ao modificar algum texto
+    if push_.contents.data('htmlgetsql-push-sentings').action is 'input'
+
+        # inicia o tratamento quando .bind for do tipo 'input', quando um texto é modificado
+        push_.contents.bind 'input', ->
 
             # # # #
             # define objetos globais
@@ -79,3 +80,4 @@ $.push_values = (html) ->
                 # caso ['data-htmlgetsql-select'] esteja nos elementos pai de this, adiciona em push_>input>this>push_>select os valores de select
                 push_.input.this.push_.select = $(push_.input.this).closest('[data-htmlgetsql-select]').data('htmlgetsql-select') if !push_.input.this.data('htmlgetsql-select')
 
+            console.log 'oi'
