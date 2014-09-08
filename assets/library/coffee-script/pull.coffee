@@ -186,8 +186,8 @@ $.extract_object_value = (data, parametro) ->
                 # retornando valor na arvore de acesso
                 parametro_ = {} if parametro.estrutura
                 parametro_.estrutura = {} if parametro.estrutura # define novo parametro
-                parametro_.estrutura = parametro.estrutura+'["'+key+'"]' if parametro.estrutura # controi a arvore de acesso
-                parametro_.estrutura = '["'+key+'"]' if parametro.estrutura && parametro.estrutura is 'estrutura'
+                parametro_.estrutura = parametro.estrutura+''+key+'>' if parametro.estrutura # controi a arvore de acesso
+                parametro_.estrutura = ''+key+'>' if parametro.estrutura && parametro.estrutura is 'estrutura'
                 # # #
 
                 #Retorna todos os valores a uma NOVA FUNCAO
@@ -201,8 +201,8 @@ $.extract_object_value = (data, parametro) ->
             data.return = [] if !data.return
 
             # cria objeto para retornar a estrutura
-            parametro.estrutura = parametro.estrutura+'["'+key+'"]' if parametro.estrutura # constroi a arvore de acesso
-            parametro.estrutura = '["'+key+'"]' if parametro.estrutura is ('estrutura["'+key+'"]') or parametro.estrutura is ''  # retorna apenas o primeiro valor
+            parametro.estrutura = parametro.estrutura+''+key+'' if parametro.estrutura # constroi a arvore de acesso
+            parametro.estrutura = ''+key+'' if parametro.estrutura is ('estrutura>'+key+'') or parametro.estrutura is ''  # retorna apenas o primeiro valor
 
             # cria objeto em temp para preencher em data.return
             temp = {} if parametro.valida && parametro.valida[key]
