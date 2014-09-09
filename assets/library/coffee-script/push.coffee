@@ -120,7 +120,7 @@ $.push_values = (html) ->
                     push_.input.this.temp.context.return = push_.input.this.temp.context.source[push_.input.this.temp.count] 
 
                     # adiciona em @temp>context>value a função '$.parser_values_request' para selecionar os dados do campo em @temp>context>return
-                    push_.input.this.temp.context.value = "valor"
+                    push_.input.this.temp.context.value = $.parser_values_request push_.input.this, '', push_.input.this.temp.context.return
 
                 # quando @temp>count estiver na penultima posição, inicia montagem de @temp>context>obj
                 if push_.input.this.temp.count is (push_.input.this.temp.context.source.length-2)
@@ -138,3 +138,4 @@ $.push_values = (html) ->
                 # adiciona -1 em @temp>count
                 push_.input.this.temp.count--
 
+            console.log push_.input.this.temp.context.value
