@@ -103,4 +103,6 @@ $.push_values = (html) ->
             # adiciona em  @temp>context>temp a array com as substituições adequadas
             push_.input.this.temp.context.temp = JSON.stringify(push_.input.this.temp.context.this).replace(/\,/g, '\n').replace(/\"/g, '').replace(/\{/g, '').replace(/\}/g, '').replace(/\n /g, '\n').replace(/\:/g, '>').split('\n')
 
+            # adiciona em @temp>context>source o resultado da função explode('>') em @temp>context>temp 
+            push_.input.this.temp.context.source = push_.input.this.temp.context.temp[0].split('>')
 
