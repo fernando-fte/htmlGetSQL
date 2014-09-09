@@ -132,3 +132,6 @@ $.push_values = (html) ->
                 # quando @temp>count tiver passado da penultima posição, continua a montagem de @temp>context>obj
                 if push_.input.this.temp.count < (push_.input.this.temp.context.source.length-2)
 
+                    # adiciona em @temp>context>obj um [object Object] com key = posição atual e val = @temp>context>obj (ele mesmo)
+                    push_.input.this.temp.context.obj = '{"' + push_.input.this.temp.context.source[push_.input.this.temp.count] + '":' + push_.input.this.temp.context.obj + '}'
+
