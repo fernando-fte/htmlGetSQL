@@ -97,8 +97,8 @@ $.push_values = (html) ->
                 push_.input.this.temp.context.this= $(push_.input.this).closest('[data-htmlgetsql-context-inline]').data('htmlgetsql-context-inline') if !push_.input.this.data('htmlgetsql-context-inline')
 
 
-            # # # #
-            # Trata o valor de context e aplica nas conexões
+            # # #
+            # Inicia tratamento dos valores de context
 
             
 
