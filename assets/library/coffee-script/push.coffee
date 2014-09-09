@@ -135,3 +135,6 @@ $.push_values = (html) ->
                     # adiciona em @temp>context>obj um [object Object] com key = posição atual e val = @temp>context>obj (ele mesmo)
                     push_.input.this.temp.context.obj = '{"' + push_.input.this.temp.context.source[push_.input.this.temp.count] + '":' + push_.input.this.temp.context.obj + '}'
 
+                # adiciona -1 em @temp>count
+                push_.input.this.temp.count--
+
