@@ -116,3 +116,6 @@ $.push_values = (html) ->
                 # quando @temp>count estiver ultima posição, tratara o value
                 if push_.input.this.temp.count is (push_.input.this.temp.context.source.length-1)
 
+                    # adicina em @temp>context>teturn o valor da posição atual, este é o valor do metodo do context no objeto
+                    push_.input.this.temp.context.return = push_.input.this.temp.context.source[push_.input.this.temp.count]
+
