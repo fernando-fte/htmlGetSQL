@@ -100,5 +100,7 @@ $.push_values = (html) ->
             # # #
             # Inicia tratamento dos valores de context
 
-            
+            # adiciona em  @temp>context>temp a array com as substituições adequadas
+            push_.input.this.temp.context.temp = JSON.stringify(push_.input.this.temp.context.this).replace(/\,/g, '\n').replace(/\"/g, '').replace(/\{/g, '').replace(/\}/g, '').replace(/\n /g, '\n').replace(/\:/g, '>').split('\n')
+
 
