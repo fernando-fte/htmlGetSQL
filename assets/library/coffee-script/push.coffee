@@ -106,3 +106,6 @@ $.push_values = (html) ->
             # adiciona em @temp>context>source o resultado da função explode('>') em @temp>context>temp 
             push_.input.this.temp.context.source = push_.input.this.temp.context.temp[0].split('>')
 
+            # adiciona em @temp>count a quantidade de campos de @temp>context>source, e subitrai 1 para a contagem a partir de 0
+            push_.input.this.temp.count = (push_.input.this.temp.context.source.length-1)
+
