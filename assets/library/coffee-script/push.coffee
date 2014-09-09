@@ -135,21 +135,24 @@ $.push_values = (html) ->
                 # quando push_>input>temp>count estiver na penultima posição, inicia montagem de push_>input>temp>context>obj
                 if push_.input.temp.count is (push_.input.temp.context.source.length-2)
 
+                    push_.input.push_.values = {}
+
                     # adiciona em push_>input>temp>context>obj um [object Object] com key = posição atual e val = push_>input>temp>context>value
-                    push_.input.push_.values = '{"' + push_.input.temp.context.source[push_.input.temp.count] + '":"' + push_.input.temp.context.value + '"}'
+                    push_.input.push_.values[push_.input.temp.context.source[push_.input.temp.count]] = push_.input.temp.context.value + ''
+
 
 
                 # quando push_>input>temp>count tiver passado da penultima posição, continua a montagem de push_>input>temp>context>obj
                 if push_.input.temp.count < (push_.input.temp.context.source.length-2)
 
+                    push_.input.temp.values = {}
+
                     # adiciona em push_>input>temp>context>obj um [object Object] com key = posição atual e val = push_>input>temp>context>obj (ele mesmo)
-                    push_.input.push_.values = '{"' + push_.input.temp.context.source[push_.input.temp.count] + '":' + push_.input.push_.values + '}'
+                    push_.input.temp.values[push_.input.temp.context.source[push_.input.temp.count]] = push_.input.push_.values
+                    push_.input.push_.values = push_.input.temp.values
 
                 # adiciona -1 em push_>input>temp>count
                 push_.input.temp.count--
-
-            # Transforma push_>input>push_values em [object Object]
-            push_.input.push_.values = $.parseJSON(push_.input.push_.values)
 
 
             # #
@@ -166,5 +169,5 @@ $.push_values = (html) ->
 
             delete push_.input.temp
 
-            console.log $($.submt_post push_.input.push_)[0]
+            console.log $($.submt_post push_.input.push_)[0].result
             # console.log push_.input.push_
