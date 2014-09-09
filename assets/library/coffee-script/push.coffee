@@ -100,36 +100,5 @@ $.push_values = (html) ->
             # # # #
             # Trata o valor de context e aplica nas conexões
 
-            # valor de retorno
-            push_.input.this.temp.context.return = $.extract_object_value {object:push_.input.this.temp.context.this}, {"key":''}
-
-            # valor do campo
-            push_.input.this.temp.context.value = $.parser_values_request push_.input.this, '', push_.input.this.temp.context.return[0]
-
-            # caminho de value
-            push_.input.this.temp.context.source = $($.extract_object_value push_.input.this.temp.context.this, {"estrutura"})[0].split('>')
-
-            # adiciona 0 em count
-            push_.input.this.temp.context.count  = (push_.input.this.temp.context.source.length-1)
-
-            # #
-            # aplica laço para mesclar o push_>input>this>temp>context>value na estrutura de push_>input>this>temp>context>this
-            while push_.input.this.temp.context.count >= 0
-
-                # adiciona em push_>input>this>temp>context>obj a montagem quando for a primeira entrada
-                push_.input.this.temp.context.obj = '{"' + push_.input.this.temp.context.source[push_.input.this.temp.context.count] + '":"' + push_.input.this.temp.context.value + '"}' if push_.input.this.temp.context.count is (push_.input.this.temp.context.source.length-1)
-
-                # adiciona em push_>input>this>temp>context>obj a montagem quando não for mais a primeira entrada
-                push_.input.this.temp.context.obj = '{"' + push_.input.this.temp.context.source[push_.input.this.temp.context.count] + '":' + push_.input.this.temp.context.obj + '}' if push_.input.this.temp.context.count < (push_.input.this.temp.context.source.length-1)
-
-                # adiciona +1
-                push_.input.this.temp.context.count--
             
-            # # 
-            # acrenta nas configurações de conexão os valores de push_>input>this>temp>context
-            push_.input.this.push_.context = $.parseJSON(push_.input.this.temp.context.obj)
-
-
-            console.log push_.input.this.push_
-
 
