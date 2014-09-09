@@ -50,92 +50,121 @@ $.push_values = (html) ->
             # adiciona em push_>input>this o documento atual do .bind()
             push_.input.this = $(this)
 
-            # adiciona em push_>input>this>setings as configurações desse push
-            push_.input.this.setings = push_.input.this.data('htmlgetsql-push-sentings')
+            # adiciona em push_>input>setings as configurações desse push
+            push_.input.setings = push_.input.this.data('htmlgetsql-push-sentings')
 
             # define push_>input>this>push_ com [object Object], deve carregar as informações do envio
-            push_.input.this.push_ = {}
+            push_.input.push_ = {}
 
             # cria objeto temporario 
-            push_.input.this.temp = {}
+            push_.input.temp = {}
 
             # cria objeto temporario para trabalhar os valores
-            push_.input.this.temp.context = {}
+            push_.input.temp.context = {}
 
 
             # # # #
             # Trata as conexões deste evento
-            if push_.input.this.setings.connect is 'pull'
+            if push_.input.setings.connect is 'pull'
 
                 # #
                 # Seleciona os valores de ['data-htmlgetsql-table']
 
                 # caso ['data-htmlgetsql-table'] esteja na raiz, adiciona em push_>input>this>push_>table os valores de table
-                push_.input.this.push_.table = push_.input.this.data('htmlgetsql-table') if push_.input.this.data('htmlgetsql-table')
+                push_.input.push_.table = push_.input.this.data('htmlgetsql-table') if push_.input.this.data('htmlgetsql-table')
 
                 # caso ['data-htmlgetsql-table'] esteja nos elementos pai de this, adiciona em push_>input>this>push_>table os valores de table
-                push_.input.this.push_.table = $(push_.input.this).closest('[data-htmlgetsql-table]').data('htmlgetsql-table') if !push_.input.this.data('htmlgetsql-table')
+                push_.input.push_.table = $(push_.input.this).closest('[data-htmlgetsql-table]').data('htmlgetsql-table') if !push_.input.this.data('htmlgetsql-table')
 
 
                 # #
                 # Seleciona os valores de ['data-htmlgetsql-select']
 
                 # caso ['data-htmlgetsql-select'] esteja na raiz, adiciona em push_>input>this>push_>select os valores de select
-                push_.input.this.push_.select = push_.input.this.data('htmlgetsql-select') if push_.input.this.data('htmlgetsql-select')
+                push_.input.push_.select = push_.input.this.data('htmlgetsql-select') if push_.input.this.data('htmlgetsql-select')
 
                 # caso ['data-htmlgetsql-select'] esteja nos elementos pai de this, adiciona em push_>input>this>push_>select os valores de select
-                push_.input.this.push_.select = $(push_.input.this).closest('[data-htmlgetsql-select]').data('htmlgetsql-select') if !push_.input.this.data('htmlgetsql-select')
+                push_.input.push_.select = $(push_.input.this).closest('[data-htmlgetsql-select]').data('htmlgetsql-select') if !push_.input.this.data('htmlgetsql-select')
 
 
                 # #
                 # Seleciona os valores de ['data-htmlgetsql-context-inline']
 
                 # caso ['data-htmlgetsql-context-inline] esteja na raiz, adiciona em push_>input>this>push_>context os valores de 'values' em context
-                push_.input.this.temp.context.this = push_.input.this.data('htmlgetsql-context-inline') if push_.input.this.data('htmlgetsql-context-inline')
+                push_.input.temp.context.this = push_.input.this.data('htmlgetsql-context-inline') if push_.input.this.data('htmlgetsql-context-inline')
 
                 # caso [['data-htmlgetsql-context-inline] esteja nos elementos pai de this, adiciona em push_>input>this>push_>context os valores de 'values' em context
-                push_.input.this.temp.context.this= $(push_.input.this).closest('[data-htmlgetsql-context-inline]').data('htmlgetsql-context-inline') if !push_.input.this.data('htmlgetsql-context-inline')
+                push_.input.temp.context.this= $(push_.input.this).closest('[data-htmlgetsql-context-inline]').data('htmlgetsql-context-inline') if !push_.input.this.data('htmlgetsql-context-inline')
+
+
+                # #
+                # Seleciona os valores de ['data-htmlgetsql-push-method']
+
+                # caso ['data-htmlgetsql-context-inline] esteja na raiz, adiciona em push_>input>this>push_>context os valores de 'values' em context
+                push_.input.push_.type = push_.input.this.data('htmlgetsql-push-method') if push_.input.this.data('htmlgetsql-push-method')
+
+                # caso [['data-htmlgetsql-push-method] esteja nos elementos pai de this, adiciona em push_>input>this>push_>context os valores de 'values' em context
+                push_.input.push_.type = $(push_.input.this).closest('[data-htmlgetsql-push-method]').data('htmlgetsql-push-method') if !push_.input.this.data('htmlgetsql-push-method')
 
 
             # # #
             # Inicia tratamento dos valores de context
 
-            # adiciona em  @temp>context>temp a array com as substituições adequadas
-            push_.input.this.temp.context.temp = JSON.stringify(push_.input.this.temp.context.this).replace(/\,/g, '\n').replace(/\"/g, '').replace(/\{/g, '').replace(/\}/g, '').replace(/\n /g, '\n').replace(/\:/g, '>').split('\n')
+            # adiciona em  push_>input>temp>context>temp a array com as substituições adequadas
+            push_.input.temp.context.temp = JSON.stringify(push_.input.temp.context.this).replace(/\,/g, '\n').replace(/\"/g, '').replace(/\{/g, '').replace(/\}/g, '').replace(/\n /g, '\n').replace(/\:/g, '>').split('\n')
 
-            # adiciona em @temp>context>source o resultado da função explode('>') em @temp>context>temp 
-            push_.input.this.temp.context.source = push_.input.this.temp.context.temp[0].split('>')
+            # adiciona em push_>input>temp>context>source o resultado da função explode('>') em push_>input>temp>context>temp 
+            push_.input.temp.context.source = push_.input.temp.context.temp[0].split('>')
 
-            # adiciona em @temp>count a quantidade de campos de @temp>context>source, e subitrai 1 para a contagem a partir de 0
-            push_.input.this.temp.count = (push_.input.this.temp.context.source.length-1)
+            # adiciona em push_>input>temp>count a quantidade de campos de push_>input>temp>context>source, e subitrai 1 para a contagem a partir de 0
+            push_.input.temp.count = (push_.input.temp.context.source.length-1)
 
             # #
-            # loop para capturar cada evento de @temp>context>source, com aplicação inversa
-            while push_.input.this.temp.count >= 0
+            # loop para capturar cada evento de push_>input>temp>context>source, com aplicação inversa
+            while push_.input.temp.count >= 0
 
-                # quando @temp>count estiver ultima posição, tratara o value
-                if push_.input.this.temp.count is (push_.input.this.temp.context.source.length-1)
+                # quando push_>input>temp>count estiver ultima posição, tratara o value
+                if push_.input.temp.count is (push_.input.temp.context.source.length-1)
 
-                    # adicina em @temp>context>teturn o valor da posição atual, este é o valor do metodo do context no objeto
-                    push_.input.this.temp.context.return = push_.input.this.temp.context.source[push_.input.this.temp.count] 
+                    # adicina em push_>input>temp>context>teturn o valor da posição atual, este é o valor do metodo do context no objeto
+                    push_.input.temp.context.return = push_.input.temp.context.source[push_.input.temp.count] 
 
-                    # adiciona em @temp>context>value a função '$.parser_values_request' para selecionar os dados do campo em @temp>context>return
-                    push_.input.this.temp.context.value = $.parser_values_request push_.input.this, '', push_.input.this.temp.context.return
+                    # adiciona em push_>input>temp>context>value a função '$.parser_values_request' para selecionar os dados do campo em push_>input>temp>context>return
+                    push_.input.temp.context.value = $.parser_values_request push_.input.this, '', push_.input.temp.context.return
 
-                # quando @temp>count estiver na penultima posição, inicia montagem de @temp>context>obj
-                if push_.input.this.temp.count is (push_.input.this.temp.context.source.length-2)
+                # quando push_>input>temp>count estiver na penultima posição, inicia montagem de push_>input>temp>context>obj
+                if push_.input.temp.count is (push_.input.temp.context.source.length-2)
 
-                    # adiciona em @temp>context>obj um [object Object] com key = posição atual e val = @temp>context>value
-                    push_.input.this.temp.context.obj = '{"' + push_.input.this.temp.context.source[push_.input.this.temp.count] + '":"' + push_.input.this.temp.context.value + '"}'
+                    # adiciona em push_>input>temp>context>obj um [object Object] com key = posição atual e val = push_>input>temp>context>value
+                    push_.input.push_.values = '{"' + push_.input.temp.context.source[push_.input.temp.count] + '":"' + push_.input.temp.context.value + '"}'
 
 
-                # quando @temp>count tiver passado da penultima posição, continua a montagem de @temp>context>obj
-                if push_.input.this.temp.count < (push_.input.this.temp.context.source.length-2)
+                # quando push_>input>temp>count tiver passado da penultima posição, continua a montagem de push_>input>temp>context>obj
+                if push_.input.temp.count < (push_.input.temp.context.source.length-2)
 
-                    # adiciona em @temp>context>obj um [object Object] com key = posição atual e val = @temp>context>obj (ele mesmo)
-                    push_.input.this.temp.context.obj = '{"' + push_.input.this.temp.context.source[push_.input.this.temp.count] + '":' + push_.input.this.temp.context.obj + '}'
+                    # adiciona em push_>input>temp>context>obj um [object Object] com key = posição atual e val = push_>input>temp>context>obj (ele mesmo)
+                    push_.input.push_.values = '{"' + push_.input.temp.context.source[push_.input.temp.count] + '":' + push_.input.push_.values + '}'
 
-                # adiciona -1 em @temp>count
-                push_.input.this.temp.count--
+                # adiciona -1 em push_>input>temp>count
+                push_.input.temp.count--
 
-            console.log push_.input.this.temp.context.value
+            # Transforma push_>input>push_values em [object Object]
+            push_.input.push_.values = $.parseJSON(push_.input.push_.values)
+
+
+            # #
+            # Reserva valores dos resultados
+
+            # cria [objeto Object] para push_>input>setings>reserve
+            push_.input.setings.reserve = {}
+
+            # adiciona em push_>input>setings>reserve>source o source de context
+            push_.input.setings.reserve.source = push_.input.temp.context.source
+
+            # adiciona em push_>input>setings>reverve>return o valor de retorno de ['data-htmlgetsql-context-inline']
+            push_.input.setings.reserve.return = push_.input.temp.context.return
+
+            delete push_.input.temp
+
+            console.log $($.submt_post push_.input.push_)[0]
+            # console.log push_.input.push_
