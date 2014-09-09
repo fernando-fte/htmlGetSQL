@@ -113,3 +113,6 @@ $.push_values = (html) ->
             # loop para capturar cada evento de @temp>context>source, com aplicação inversa
             while push_.input.this.temp.count >= 0
 
+                # quando @temp>count estiver ultima posição, tratara o value
+                if push_.input.this.temp.count is (push_.input.this.temp.context.source.length-1)
+
