@@ -117,5 +117,8 @@ $.push_values = (html) ->
                 if push_.input.this.temp.count is (push_.input.this.temp.context.source.length-1)
 
                     # adicina em @temp>context>teturn o valor da posição atual, este é o valor do metodo do context no objeto
-                    push_.input.this.temp.context.return = push_.input.this.temp.context.source[push_.input.this.temp.count]
+                    push_.input.this.temp.context.return = push_.input.this.temp.context.source[push_.input.this.temp.count] 
+
+                    # adiciona em @temp>context>value a função '$.parser_values_request' para selecionar os dados do campo em @temp>context>return
+                    push_.input.this.temp.context.value = "valor"
 
