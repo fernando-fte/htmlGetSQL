@@ -109,3 +109,7 @@ $.push_values = (html) ->
             # adiciona em @temp>count a quantidade de campos de @temp>context>source, e subitrai 1 para a contagem a partir de 0
             push_.input.this.temp.count = (push_.input.this.temp.context.source.length-1)
 
+            # #
+            # loop para capturar cada evento de @temp>context>source, com aplicação inversa
+            while push_.input.this.temp.count >= 0
+
