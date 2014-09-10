@@ -158,8 +158,8 @@ $.push_values = (html) ->
             # #
             # Reserva valores dos resultados
 
-            # cria [objeto Object] para push_>input>setings>reserve
-            push_.input.setings.reserve = {}
+            # cria [objeto Object] para push_>input>setings>reserve caso ele já não exista
+            push_.input.setings.reserve = {} if !push_.input.setings.reserve
 
             # adiciona em push_>input>setings>reserve>source o source de context
             push_.input.setings.reserve.source = push_.input.temp.context.source
@@ -169,5 +169,22 @@ $.push_values = (html) ->
 
             delete push_.input.temp
 
-            console.log $($.submt_post push_.input.push_)[0].result
+            # # #
+            # trata envio para o servidor
+
+            # acrecenta em push_>input>push_>return o resultado da submição
+            push_.input.push_.return = $($.submt_post push_.input.push_)[0]
+
+            # caso tenha tido sucesso
+            if push_.input.push_.return.success
+
+                # 
+                console.log push_.input.push_.return
+
+
+
+
+                # ...
+            
+
             # console.log push_.input.push_
