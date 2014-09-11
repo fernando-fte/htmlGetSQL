@@ -178,13 +178,7 @@ $.push_values = (html) ->
             # caso tenha tido sucesso
             if push_.input.push_.return.success
 
-                # 
-                console.log push_.input.push_.return
+                # adiciona na estrutura do html o valor de alteração
+                push_.input.this.attr("data-htmlgetsql-update", JSON.stringify(push_.input.push_.return))
 
-
-
-
-                # ...
-            
-
-            # console.log push_.input.push_
+                console.log $("[data-htmlgetsql-update]").data('htmlgetsql-update')
