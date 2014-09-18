@@ -173,7 +173,7 @@ $.htmlGetSQL.push = (html) ->
             # trata envio para o servidor
 
             # acrecenta em push_>input>push_>return o resultado da submição
-            push_.input.push_.return = $($.submt_post push_.input.push_)[0]
+            push_.input.push_.return = $($.htmlGetSQL.buttress.send push_.input.push_)[0]
 
             # caso tenha tido sucesso
             if push_.input.push_.return.success

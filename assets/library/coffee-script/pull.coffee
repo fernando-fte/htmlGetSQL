@@ -18,6 +18,10 @@ $.htmlGetSQL.tokens.pull_ = {} if !$.htmlGetSQL.tokens.pull_
 
 # define tokens>push_ caso não exista
 $.htmlGetSQL.tokens.push_ = {} if !$.htmlGetSQL.tokens.push_
+
+# define tokens>user_ caso não exista
+$.htmlGetSQL.tokens.user_ = {} if !$.htmlGetSQL.tokens.user_
+
 #                                     #
 # # # # # # # # # # # # # # # # # # # #
 
