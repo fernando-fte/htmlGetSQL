@@ -7,8 +7,17 @@
 # define caso não exista
 $.htmlGetSQL = {} if !$.htmlGetSQL
 
-# define feature caso não exista
+# define buttress caso não exista
 $.htmlGetSQL.buttress = {} if !$.htmlGetSQL.buttress
+
+# define tokens caso não exista
+$.htmlGetSQL.tokens = {} if !$.htmlGetSQL.tokens
+
+# define tokens>pull_ caso não exista
+$.htmlGetSQL.tokens.pull_ = {} if !$.htmlGetSQL.tokens.pull_
+
+# define tokens>push_ caso não exista
+$.htmlGetSQL.tokens.push_ = {} if !$.htmlGetSQL.tokens.push_
 #                                     #
 # # # # # # # # # # # # # # # # # # # #
 
