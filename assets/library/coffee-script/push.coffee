@@ -6,7 +6,7 @@
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # recebe valores do html, trata os valores e aplica os tratamentos
-$.push_values = (html) ->
+$.htmlGetSQL.push = (html) ->
     # # # # #
     # # Descreve valores recebidos em '$.pull_values = (html) ->'
     # html   = o HTML deve ser passado com um object dom '$(document)'
@@ -129,8 +129,8 @@ $.push_values = (html) ->
                     # adicina em push_>input>temp>context>teturn o valor da posição atual, este é o valor do metodo do context no objeto
                     push_.input.temp.context.return = push_.input.temp.context.source[push_.input.temp.count] 
 
-                    # adiciona em push_>input>temp>context>value a função '$.parser_values_request' para selecionar os dados do campo em push_>input>temp>context>return
-                    push_.input.temp.context.value = $.parser_values_request push_.input.this, '', push_.input.temp.context.return
+                    # adiciona em push_>input>temp>context>value a função '$.htmlGetSQL.buttress.parse_values' para selecionar os dados do campo em push_>input>temp>context>return
+                    push_.input.temp.context.value = $.htmlGetSQL.buttress.parse_values push_.input.this, '', push_.input.temp.context.return
 
                 # quando push_>input>temp>count estiver na penultima posição, inicia montagem de push_>input>temp>context>obj
                 if push_.input.temp.count is (push_.input.temp.context.source.length-2)

@@ -86,10 +86,10 @@
         <script src="assets/vendor/less/less.min.js"></script>
  
         <!-- APP: htmlGetSQL - load -->
-        <script type="text/coffeescript" src="assets/library/coffee-script/submit.php.coffee"></script>
         <script type="text/coffeescript" src="assets/library/coffee-script/pull.coffee"></script>
+        <script type="text/coffeescript" src="assets/library/coffee-script/submit.php.coffee"></script>
         <script type="text/coffeescript">
-            $.pull_values $(document)
+            $.htmlGetSQL.pull $(document)
         </script>
     </body>
 </html>

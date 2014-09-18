@@ -1,5 +1,5 @@
 # FUNÇÃO ENVIAR PARA PHP #
-$.submt_post = (value) ->
+$.htmlGetSQL.buttress.send = (value) ->
     # # #
     # value = valores para conexao e busca no banco
     # # #

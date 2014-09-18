@@ -2,14 +2,25 @@
 # APLICAÇÃO DE TRATAMENTO DAS SOLICITAÇÃO VIA JSON VINDA DO BANCO #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# # # # # # # # # # # # # # # # # # # #
+# INICIA OBJECT GLOBAL DE MANIPULAÇÃO #
+# define caso não exista
+$.htmlGetSQL = {} if !$.htmlGetSQL
+
+# define feature caso não exista
+$.htmlGetSQL.buttress = {} if !$.htmlGetSQL.buttress
+#                                     #
+# # # # # # # # # # # # # # # # # # # #
+
+
 # # # # FUNÇÕES DE APOIO # # # # 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # recebe e trata os valores de solicitação e resposta
-$.parser_values_request = (me, data, val) -> #recebe função, introdução a baixo
+$.htmlGetSQL.buttress.parse_values = (me, data, val) -> #recebe função, introdução a baixo
 
     # subfunção de retorno de valores
-    f_parser_values_request = (value) ->
+    $.htmlGetSQL.buttress.parse_values.request = (value) ->
 
         switch value.type # quando o valor
             # processa valor e preenche o local indicado
@@ -63,10 +74,10 @@ $.parser_values_request = (me, data, val) -> #recebe função, introdução a ba
     # # # # # # # # # # # # # # # # # # # # # # # # #
 
     # # # # #
-    # Inicia a aplição da função $.parser_values_request
+    # Inicia a aplição da função $.htmlGetSQL.buttress.parse_values
 
     # # # # #
-    # # Descreve valores recebidos em '$.parser_values_request = (me, data, val) ->'
+    # # Descreve valores recebidos em '$.htmlGetSQL.buttress.parse_values = (me, data, val) ->'
     # me   = html na arvore down
     # data = valor unico para tipo de campo
     # val  = valor a ser acrecentado conforme "data" ou a 
@@ -84,14 +95,14 @@ $.parser_values_request = (me, data, val) -> #recebe função, introdução a ba
         process.type = val
         process.me
 
-        # processo os valores na subfunção 'f_parser_values_request'
-        f_parser_values_request process
+        # processo os valores na subfunção '$.htmlGetSQL.buttress.parse_values.request'
+        $.htmlGetSQL.buttress.parse_values.request process
 
     # caso seja um '[object Object]'
     else # if !data or (!data+'') is '[object Object]'
 
         # recebe e copile os valores para a sincronia
-        copile = $.extract_object_value data, {"valida":val}
+        copile = $.htmlGetSQL.buttress.parser_object data, {"valida":val}
 
         # cria contador
         count = 0
@@ -105,7 +116,7 @@ $.parser_values_request = (me, data, val) -> #recebe função, introdução a ba
                 process.val = val
 
                 # processo os valores na sub-função
-                f_parser_values_request process
+                $.htmlGetSQL.buttress.parse_values.request process
 
             # acrecento no loop
             count++
@@ -115,7 +126,7 @@ $.parser_values_request = (me, data, val) -> #recebe função, introdução a ba
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # extrai os valores do object
-$.extract_object_value = (data, parametro) ->
+$.htmlGetSQL.buttress.parser_object = (data, parametro) ->
     # # # #
     # deve ser passado dois valores, um data e outro parametro sendo este relativo
     # caso não exista parametro comparativo será retornado o valor de data como uma lista
@@ -128,14 +139,14 @@ $.extract_object_value = (data, parametro) ->
     # # key = {"oi":"a", "1":{"1.1":{"1.1.1":"res 1.1.1 - banco"}}}
 
     # # console.log banco
-    # # console.log $.extract_object_value {object:banco}, {"valida":key}
-    # # console.log $.extract_object_value {object:banco}, {"key":key}
-    # # console.log $.extract_object_value {object:banco}, {"estrutura"}
-    # # console.log $.extract_object_value {object:banco}, {}
+    # # console.log $.htmlGetSQL.buttress.parser_object {object:banco}, {"valida":key}
+    # # console.log $.htmlGetSQL.buttress.parser_object {object:banco}, {"key":key}
+    # # console.log $.htmlGetSQL.buttress.parser_object {object:banco}, {"estrutura"}
+    # # console.log $.htmlGetSQL.buttress.parser_object {object:banco}, {}
     # # # #
 
     # sub função para a validação do tipo de exceução
-    f_excecao = (key) ->
+    $.htmlGetSQL.buttress.parser_object.ignore = (key) ->
         switch key
             when "template-toogle"
                 return false
@@ -154,7 +165,7 @@ $.extract_object_value = (data, parametro) ->
         if (val+'') is '[object Object]' #quando val: objeto
 
             # valida se pode ser processado
-            _return = f_excecao key
+            _return = $.htmlGetSQL.buttress.parser_object.ignore key
 
             # retorno o valor de template-toogle direto ao return
             if key is 'template-toogle'
@@ -191,7 +202,7 @@ $.extract_object_value = (data, parametro) ->
                 # # #
 
                 #Retorna todos os valores a uma NOVA FUNCAO
-                $.extract_object_value data, parametro_
+                $.htmlGetSQL.buttress.parser_object data, parametro_
 
 
         # quando não é mais um objeto e sim um valor
@@ -239,7 +250,7 @@ $.extract_object_value = (data, parametro) ->
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # recebe valores do html e trata os valores e aplica tratamentos
-$.pull_values = (html) ->
+$.htmlGetSQL.pull = (html) ->
     # # # # #
     # # Descreve valores recebidos em '$.pull_values = (html) ->'
     # html   = o HTML deve ser passado com um object dom '$(document)'
@@ -308,7 +319,7 @@ $.pull_values = (html) ->
         if pull[temp['position']].data is "me"
 
             # seleciona os valores do banco de dados
-            temp['return'] = $.submt_post pull[temp['position']].pull
+            temp['return'] = $.htmlGetSQL.buttress.send pull[temp['position']].pull
 
             # defino em 'pull["position"].values' os valores de 'template-data'
             pull[temp['position']].this.values = pull[temp['position']].this.data('htmlgetsql-context-inline')
@@ -317,7 +328,7 @@ $.pull_values = (html) ->
             if temp['return']
 
                 # repassa para a função processar e aplicar os valores
-                $.parser_values_request pull[temp['position']].this, pull[temp['position']].this.values, temp['return']['0']
+                $.htmlGetSQL.buttress.parse_values pull[temp['position']].this, pull[temp['position']].this.values, temp['return']['0']
         #
         # Fim de 'quando 'pull' for do tipo 'me', e o tratamento for para o elemento atual'
         # #
@@ -327,7 +338,7 @@ $.pull_values = (html) ->
         else if pull[temp['position']].data is "child"
 
             # seleciona os valores do banco de dados
-            temp['return'] = $.submt_post pull[temp['position']].pull
+            temp['return'] = $.htmlGetSQL.buttress.send pull[temp['position']].pull
 
             # seleciona onde vaiser acrecentado os dados
             pull[temp['position']].childs = {} # define template.values para valor de cada item
@@ -353,7 +364,7 @@ $.pull_values = (html) ->
                 if temp['return']
 
                     #repasso apra a função processar e aplicar os valores
-                    $.parser_values_request pull[temp['position']].childs.contents[temp['count'][temp['position']]].this, pull[temp['position']].childs.contents[temp['count'][temp['position']]].values, temp['return']['0']
+                    $.htmlGetSQL.buttress.parse_values pull[temp['position']].childs.contents[temp['count'][temp['position']]].this, pull[temp['position']].childs.contents[temp['count'][temp['position']]].values, temp['return']['0']
 
                 #acrecento nesta posicao
                 temp['count'][temp['position']]++
@@ -372,7 +383,7 @@ $.pull_values = (html) ->
             pull[temp['position']].pull.regra = {"limit":false} # limite de respostas
 
             # seleciona banco de dados
-            temp['return'] = $.submt_post pull[temp['position']].pull
+            temp['return'] = $.htmlGetSQL.buttress.send pull[temp['position']].pull
 
             # acrecebta em count zero na posicao atual
             temp['count'][temp['position']] = 0 # acrecento em zero
@@ -427,7 +438,7 @@ $.pull_values = (html) ->
                     pull[temp['position']].gallery.this.values = pull[temp['position']].gallery.this.data('htmlgetsql-context-inline')
 
                     # repasso para a função preencher os dados
-                    $.parser_values_request pull[temp['position']].gallery.this, pull[temp['position']].gallery.this.values, temp['return'][temp['count'][temp['position']]['gallery']]
+                    $.htmlGetSQL.buttress.parse_values pull[temp['position']].gallery.this, pull[temp['position']].gallery.this.values, temp['return'][temp['count'][temp['position']]['gallery']]
 
 
                 # repito aplicação dos valores para
@@ -440,7 +451,7 @@ $.pull_values = (html) ->
                     pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].values = pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this.data("htmlgetsql-context-inline")
 
                     # repasso para a função preencher os dados
-                    $.parser_values_request pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this, pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].values, temp['return'][temp['count'][temp['position']]['gallery']]
+                    $.htmlGetSQL.buttress.parse_values pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].this, pull[temp['position']].gallery.childs.contents[temp['count'][temp['position']]['child']].values, temp['return'][temp['count'][temp['position']]['gallery']]
 
                     # acrecento no contador de filhos
                     temp['count'][temp['position']]['child']++

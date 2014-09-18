@@ -135,16 +135,18 @@
         <script src="assets/vendor/less/less.min.js"></script>
  
         <!-- APP: htmlGetSQL - load -->
-        <script type="text/coffeescript" src="assets/library/coffee-script/submit.php.coffee"></script>
         <script type="text/coffeescript" src="assets/library/coffee-script/pull.coffee"></script>
         <script type="text/coffeescript" src="assets/library/coffee-script/push.coffee"></script>
+        <script type="text/coffeescript" src="assets/library/coffee-script/submit.php.coffee"></script>
         <script type="text/coffeescript">
 
             # invoca a função pull, importando os valores do sql
-            $.pull_values $(document)
+            $.htmlGetSQL.pull $(document)
 
             # invoca a função push, tratando os valores do formulario
-            $.push_values $(document)
+            $.htmlGetSQL.push $(document)
+
+            console.log($.htmlGetSQL)
         </script>
     </body>
 </html>
