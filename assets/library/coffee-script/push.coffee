@@ -102,17 +102,25 @@ $.htmlGetSQL.push = (html) ->
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.select = {}
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.select.sku = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].connect.sku
 
-                    # redefine push_>update>history
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history = {}
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.this = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = false if $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = true if !$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
+                    # verifica se history é verdadeiro
+                    if $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
+
+                        # redefine push_>update>history
+                        $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history = {}
+
+                        # adiciona em push_>update>history>this o id de history
+                        $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.this = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this
+                        # adiciona em push_>update>history>change com false
+                        $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = false 
+
+                    # retorna em history o valor falso
+                    delete $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history if !$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
 
                     # redefine push_>update>value
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.value = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].value
 
 
-                    console.log $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_
+                    console.log $.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_
 
 
                 # #

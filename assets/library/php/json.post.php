@@ -300,6 +300,85 @@ if (array_key_exists('type', $post)) {
             }
             
 
+            # verifica se o valor recebido em $post possui a array "update"
+            if (array_key_exists('update', $post)) {
+
+                # valida se history já existe nesse caso
+                if (array_key_exists('history', $post['update'])) {
+
+                    # verifica se existe history, e se é finalizado
+                    if ($post['update']['history']['change'] === 'false') {
+
+
+                        $temp['regra']['where'] = 'LIKE';
+                        $temp['regra']['limit'] = '1';
+                        $temp['regra']['order']['to'] = 'history';
+                        $temp['regra']['order']['by'] = 'ASC';
+
+                        $temp['select']['history'] = $post['update']['history']['this'];
+
+                        # adiciona em $temp>regra os valores de $post na função 'f_json_where'
+                        $temp['history']['regra'] = f_json_where($temp);
+
+                        # adiciona em $temp>tabela o valor referente a tabela com tratamento especifico
+                        $temp['history']['tabela'] = '`htmlgetsql.history`'; 
+
+                        # adiciona em $temp>campos os campos a serem selecionado, no caso "*" todos por padrão
+                        $temp['history']['campos'] = array('' => '`values`');
+
+                        # seleciona os valores do banco de dados recebidos da função select() com os dados tratados anteriormente
+                        $temp['history']['select'] = select($temp['history']['tabela'], $temp['history']['campos'], $temp['history']['regra']);
+
+                        // print_r($temp['history']['select']['values']);
+
+                        # #
+                        # manipula ultima alteração
+
+                        # mapeia as respostas do servidor como object json para array
+                        $temp['history']['select']['values'] = json_decode($temp['history']['select']['values'], true);;
+
+                        # adiciona no ultimo item a data de remoção
+                        $temp['history']['select']['values']['history']['atual']['date']['remove'] = date('Y-m-d').' '.date('h:i:s');
+
+                        # move o ultimo item para backup
+                        $temp['history']['select']['values']['history']['backup'][$temp['history']['select']['values']['history']['atual']['date']['remove']] = $temp['history']['select']['values']['history']['atual'];
+
+                        # apaga o item atual para receber os novos valores
+                        unset($temp['history']['select']['values']['history']['atual']);
+
+                        # #
+
+                        # adiciona em atual o valor editado
+                        $temp['history']['select']['values']['history']['atual']['values'] = $post['update']['value'];
+                        $temp['history']['select']['values']['history']['atual']['date']['create'] = date('Y-m-d').' '.date('h:i:s');
+
+
+                        # mapeia os dados de resposta do servidor e transforma em object json
+                        $temp['history']['update']['values'] = json_encode($temp['history']['select']['values'], true);
+
+                        # envia update ao banco
+                        update('`htmlgetsql.history`', $temp['history']['update'], $temp['history']['regra']);
+
+                        // print_r($temp['history']['select']['values']);
+                        // print_r($temp['history']['regra']);
+
+
+                        # define valor de resposta
+                        $temp['return']['success'] = true;
+
+                        # retorna ao js
+                        echo '['.json_encode($temp['return'], true).']';
+
+                        # apaga temp
+                        unset($temp);
+                    }
+
+                }
+
+                if (!array_key_exists('history', $post['update'])) {
+                    echo 'cria novo history';
+                }
+            }
             // # verifica se o valor recebido em $post possui a array "update"
             // if (array_key_exists('update', $post)) {
 
