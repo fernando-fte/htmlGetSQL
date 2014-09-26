@@ -53,249 +53,11 @@ if (array_key_exists('type', $post)) {
             # verifica se o valor recebido em $post possui a array "update"
             if (!array_key_exists('update', $post)) {
 
-                # #
-                # define e seleciona valores do banco de dados
-
-                # adiciona em $temp>regra os valores de $post na função 'f_json_where'
-                $temp['new-update']['regra'] = f_json_where($post);
-
-                # adiciona em $temp>tabela o valor referente a tabela com tratamento especifico
-                $temp['new-update']['tabela'] = '`'.$post['table'].'`'; 
-
-                # adiciona em $temp>campos os campos a serem selecionado, no caso "*" todos por padrão
-                $temp['new-update']['campos'] = array('' => '*');
-
-                # seleciona os valores do banco de dados recebidos da função select() com os dados tratados anteriormente
-                $temp['new-update']['select'] = select($temp['new-update']['tabela'], $temp['new-update']['campos'], $temp['new-update']['regra']);
-
-                # Fim de "define e seleciona valores do banco de dados"
-                # #
-
-
-                # mapeia as respostas do servidor como object json para array
-                $temp['new-update']['select']['values'] = json_decode($temp['new-update']['select']['values'], true);
-
-
-                # # #
-                # caso não exista $temp>new-update>select>values>htmlGetSQL.setings configura suas propriedades e envia ao banco
-                if(!array_key_exists('htmlGetSQL.setings', $temp['new-update']['select']['values'])) {
-
-                    # configura htmlGetSQL>setings>selectors para table
-                    $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['table'] = $post['table'];
-
-                    # configura htmlGetSQL>setings>selectors para select
-                    $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['index'] = $temp['new-update']['select']['index'];
-                    $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['segmento'] = $temp['new-update']['select']['segmento'];
-                    $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['grupo'] = $temp['new-update']['select']['grupo'];
-                    $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['type'] = $temp['new-update']['select']['type'];
-                    $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['sku'] = $temp['new-update']['select']['sku'];
-
-                    # mapeia os dados de resposta do servidor e transforma em object json
-                    $temp['new-update']['dados']['values'] = json_encode($temp['new-update']['select']['values']);
-
-                    # envia atualização para o original
-                    update($temp['new-update']['tabela'], $temp['new-update']['dados'], $temp['new-update']['regra']);
-
-                    # zera valor de dados
-                    unset($temp['new-update']['dados']);
-                }
-
-
-                # # # #
-                # Inicia novo history para armazenar as alterações
-
-                # acrecenta em $temp>new-update>history>montagem>date a string '0000-00-00 00:00:00'
-                $temp['new-update']['history']['montagem']['date'] = date('Y-m-d').' '.date('h:i:s');
-
-                # acrecenta em $temp>new-update>history>montagem>md5 o valor do md5 dade + sku do select + o sku do registro
-                $temp['new-update']['history']['montagem']['md5'] = md5(
-                     $temp['new-update']['history']['montagem']['date']
-                    .$temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['sku']
-                    .$post['log']['registro']['reg']
-                );
-
-                # acrecenta em $temp>new-update>history>montagem>sku o valor dos 5 primeiros digitos + os 5 ultimos de $temp>new-update>history>montagem>md5
-                $temp['new-update']['history']['montagem']['sku'] = substr($temp['new-update']['history']['montagem']['md5'], 0, 5) . substr($temp['new-update']['history']['montagem']['md5'], -5);
-
-
-                # seleciona history para validar o campo 
-                function valida_history($sku, $type) {
-
-                    $temp['regra']['where'] = 'LIKE';
-                    $temp['regra']['limit'] = '1';
-                    $temp['regra']['order']['to'] = 'history';
-                    $temp['regra']['order']['by'] = 'ASC';
-
-                    $temp['select']['history'] = $sku;
-
-                    # adiciona em $temp>regra os valores de $post na função 'f_json_where'
-                    $temp['sku']['regra'] = f_json_where($temp);
-
-                    # adiciona em $temp>tabela o valor referente a tabela com tratamento especifico
-                    $temp['sku']['tabela'] = '`htmlgetsql.history`'; 
-
-                    # adiciona em $temp>campos os campos a serem selecionado, no caso "*" todos por padrão
-                    $temp['sku']['campos'] = array('' => 'history');
-
-                    # seleciona os valores do banco de dados recebidos da função select() com os dados tratados anteriormente
-                    $temp['sku']['select'] = select($temp['sku']['tabela'], $temp['sku']['campos'], $temp['sku']['regra']);
-
-
-                    # caso a seleção seja do tipo retorno
-
-                    if (!$type) {
-
-                        # caso não exista nem uma ocorrencia deste valor
-                        if ($temp['sku']['select'] == 'Empty') {
-
-                            return $sku;
-                        }
-
-                        # caso exista algum huistory com este valor
-                        else {
-
-                            # adiciona a data atual em md5 + sku atual
-                            $sku = md5($sku.date('Y-m-d').' '.date('h:i:s'));
-
-                            # subtrai os 5 ultimos e 5 primeiros digitos
-                            $sku = substr($sku, 0, 5) . substr($sku, -5);
-
-                            # repasso para a função revalidando novamente
-                            return valida_history($sku);
-                        }
-                    }
-
-                    elseif ($type) {
-
-                        # caso não exista nem uma ocorrencia deste valor
-                        if ($temp['sku']['select'] != 'Empty') {
-
-                            # retorna verdadeiro
-                            return true;
-                        }
-
-                        # caso exista algum huistory com este valor
-                        else {
-
-                            # retorna falso
-                            return false;
-                        }
-                    }
-                }
-
-
-                # valida se sku não é duplicado
-                $temp['new-update']['history']['montagem']['sku'] = valida_history($temp['new-update']['history']['montagem']['sku'], false);
-
-
-                # # #
-                # # monta valores para insert
-
-                # acrecenta em $temp>new-update>history>campos>history o valor sku para history em $temp>new-update>history>montagem>sku
-                $temp['new-update']['history']['campos']['history'] =  $temp['new-update']['history']['montagem']['sku'];
-
-                # acrecenta em $temp>new-update>history>campos>sku o valor sku do select trabalhados em $temp>new-update>select>values>htmlGetSQL.setings>htmlGetSQL.selectors>select>sku
-                $temp['new-update']['history']['campos']['sku'] =  $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['sku'];
-
-                # acrecenta em $temp>new-update>history>campos>table o valor table do select em $temp>new-update>select>values>htmlGetSQL.setings>htmlGetSQL.selectors>table
-                $temp['new-update']['history']['campos']['table'] =  $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['table'];
-
-                # acrecenta em $temp>new-update>history>campos>log o valor sku do reg do usuario em $postlog>registro>reg
-                $temp['new-update']['history']['campos']['log'] =  $post['log']['registro']['reg'];
-
-
-                # # # #
-                # # # Configura $temp>new-update>history>campos>values
-
-                # # # # # 
-                # # # # configura valor atual
-
-                # # # adiciona data
-                $temp['new-update']['history']['campos']['values']['history']['atual']['date']['create'] = $temp['new-update']['history']['montagem']['date'];
-                # # # # adiciona os values
-                $temp['new-update']['history']['campos']['values']['history']['atual']['values'] = $post['values'];
-
-                # # # # configura valor atual
-                # # # # # 
-
-
-                # # # # # 
-                # # # # configura backup do original
-
-                # # # adiciona data
-                $temp['new-update']['history']['campos']['values']['history']['backup']['original']['date']['create'] = $temp['new-update']['history']['montagem']['date'];
-                # # # # adiciona os values
-                $temp['new-update']['history']['campos']['values']['history']['backup']['original']['values'] = $temp['new-update']['select']['values'];
-
-                # # # # configura backup do original
-                # # # # # 
-
-                
-                # # # # #
-                # # # # Configura setings
-
-                # # # # configura htmlGetSQL>setings>selectors para tabela
-                $temp['new-update']['history']['campos']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['table'] = 'htmlgetsql.history';
-
-                # # # # configura htmlGetSQL>setings>selectors para select
-                $temp['new-update']['history']['campos']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['history'] = $temp['new-update']['history']['campos']['history'];
-                $temp['new-update']['history']['campos']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['sku'] = $temp['new-update']['history']['campos']['sku'];
-                $temp['new-update']['history']['campos']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['table'] = $temp['new-update']['history']['campos']['table'];
-                $temp['new-update']['history']['campos']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['log'] = $temp['new-update']['history']['campos']['log'];
-
-                # # # # Configura setings
-                # # # # #
-
-
-                # # # # mapeia os dados de resposta do servidor e transforma em object json
-                $temp['new-update']['history']['campos']['values'] = json_encode($temp['new-update']['history']['campos']['values'], true);
-
-                # # # Configura $temp>new-update>history>campos>values
-                # # # #
-
-                # # monta valores para insert
-                # # #
-
-                # incherta os valores tratados no banco de dados pela função insert()
-                insert('`htmlgetsql.history`', $temp['new-update']['history']['campos']);
-
-                # Inicia novo history para armazenar as alterações
-                # # # #
-
-                # # #
-                # retorna para o js o resultado
-
-                # retorna tipo do trabalho
-                $temp['new-update']['return']['type'] = 'new-history';
-
-                # caso o history tenha sido criado
-                if (valida_history($temp['new-update']['history']['montagem']['sku'], true)){
-
-                    # adiciona o valor do history para $temp>new-update>return>history
-                    $temp['new-update']['return']['history'] = $temp['new-update']['history']['montagem']['sku'];
-
-                    # adiciona o valor do sku do valor trabalhado
-                    $temp['new-update']['return']['connect']['sku'] = $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['sku'];
-
-                    # adiciona o valor da tabela do valor trabalhado
-                    $temp['new-update']['return']['connect']['table'] = $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['table'];
-
-                    # retorna status do trabalho com verdadeiro
-                    $temp['new-update']['return']['success'] = true;
-
-                    # retorna o valor para js
-                    echo '['.json_encode($temp['new-update']['return']).']';
-                }
-
-                # caso o history não tenha sido criado
-                else {
-
-                    # retorna status do trabalho com falso
-                    $temp['new-update']['return']['success'] = false;
-
-                    # retorna o valor para js
-                    echo '['.json_encode($temp['new-update']['return']).']';
-                }
+                # adiciona em $temp>return a criação do history
+                $temp['return'] = f_new_history($post);
+
+                # retorna ao JS
+                echo '['.json_encode($temp['return'], true).']';
 
             }
             
@@ -364,6 +126,7 @@ if (array_key_exists('type', $post)) {
 
 
                         # define valor de resposta
+                        $temp['return']['type'] = 'update-history';
                         $temp['return']['success'] = true;
 
                         # retorna ao js
@@ -376,13 +139,18 @@ if (array_key_exists('type', $post)) {
                 }
 
                 if (!array_key_exists('history', $post['update'])) {
-                    echo 'cria novo history';
+
+                    # adiciona em $temp>return a criação do history
+                    $temp['return'] = f_new_history($post);
+
+                    # retorna ao JS
+                    echo '['.json_encode($temp['return'], true).']';
                 }
             }
             // # verifica se o valor recebido em $post possui a array "update"
             // if (array_key_exists('update', $post)) {
 
-            //    // $post['update']['history'] = 'b1c2d3e4f5';
+            //    // $post['update'] = 'b1c2d3e4f5';
             //    // $post['update']['']
 
             //     # valida se $post>update não possui history

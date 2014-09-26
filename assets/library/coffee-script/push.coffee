@@ -87,6 +87,7 @@ $.htmlGetSQL.push = (html) ->
 
                     # redefine push_
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_ = {}
+
                     # redefine push_update
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update = {}
 
@@ -99,8 +100,13 @@ $.htmlGetSQL.push = (html) ->
 
                     # redefine push_>table
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.table  = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].connect.table
+
+                    # redefine push_>select
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.select = {}
+
+                    # redefine push_>select>sku
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.select.sku = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].connect.sku
+
 
                     # verifica se history é verdadeiro
                     if $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
@@ -110,6 +116,7 @@ $.htmlGetSQL.push = (html) ->
 
                         # adiciona em push_>update>history>this o id de history
                         $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.this = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this
+
                         # adiciona em push_>update>history>change com false
                         $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = false 
 
@@ -119,8 +126,8 @@ $.htmlGetSQL.push = (html) ->
                     # redefine push_>update>value
                     $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.value = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].value
 
-
-                    console.log $.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_
+                    # envia atualização para o servidor
+                    $.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_
 
 
                 # #
