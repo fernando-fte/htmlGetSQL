@@ -275,7 +275,10 @@ if (array_key_exists('type', $post)) {
                     $temp['new-update']['return']['history'] = $temp['new-update']['history']['montagem']['sku'];
 
                     # adiciona o valor do sku do valor trabalhado
-                    $temp['new-update']['return']['sku'] = $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['sku'];
+                    $temp['new-update']['return']['connect']['sku'] = $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['sku'];
+
+                    # adiciona o valor da tabela do valor trabalhado
+                    $temp['new-update']['return']['connect']['table'] = $temp['new-update']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['table'];
 
                     # retorna status do trabalho com verdadeiro
                     $temp['new-update']['return']['success'] = true;
@@ -295,7 +298,7 @@ if (array_key_exists('type', $post)) {
                 }
 
             }
-
+            
 
             // # verifica se o valor recebido em $post possui a array "update"
             // if (array_key_exists('update', $post)) {

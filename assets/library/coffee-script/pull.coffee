@@ -259,6 +259,70 @@ $.htmlGetSQL.buttress.parser_object = (data, parametro) ->
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# mescla valor de context da solicitação
+$.htmlGetSQL.buttress.merger_object_context = (context) ->
+    # context deve conter um [object Object]
+    # context.obj = {"titulo":"value"}
+    # context.this = html.this
+
+    temp = {}
+
+    temp.context = {}
+    temp.context.this = context.obj
+    temp.temp = {}
+
+    return_ = {}
+
+    # adiciona em  push_>input>temp>context>temp a array do context, transforma em text-plain com as substituições adequadas
+    temp.context.temp = JSON.stringify(temp.context.this).replace(/\,/g, '\n').replace(/\"/g, '').replace(/\{/g, '').replace(/\}/g, '').replace(/\n /g, '\n').replace(/\:/g, '>').split('\n')
+
+    # adiciona em push_>input>temp>context>source o resultado da função explode('>') em push_>input>temp>context>temp 
+    temp.context.source = temp.context.temp[0].split('>')
+
+    # adiciona em push_>input>temp>count a quantidade de campos de push_>input>temp>context>source, e subitrai 1 para a contagem a partir de 0
+    temp.count = (temp.context.source.length-1)
+
+    # #
+    # loop para capturar cada evento de push_>input>temp>context>source, com aplicação inversa
+    while temp.count >= 0
+
+        # quando push_>input>temp>count estiver ultima posição, tratara o value
+        if temp.count is (temp.context.source.length-1)
+
+            # adicina em push_>input>temp>context>teturn o valor da posição atual, este é o valor do metodo do context no objeto
+            temp.context.return = temp.context.source[temp.count] 
+
+            # adiciona em push_>input>temp>context>value a função '$.htmlGetSQL.buttress.parse_values' para selecionar os dados do campo em push_>input>temp>context>return
+            temp.context.value = $.htmlGetSQL.buttress.parse_values context.this, '', temp.context.return
+
+        # quando push_>input>temp>count estiver na penultima posição, inicia montagem de push_>input>temp>context>obj
+        if temp.count is (temp.context.source.length-2)
+
+            return_.values = {}
+
+            # adiciona em push_>input>temp>context>obj um [object Object] com key = posição atual e val = push_>input>temp>context>value
+            return_.values[temp.context.source[temp.count]] = temp.context.value + ''
+
+
+
+        # quando push_>input>temp>count tiver passado da penultima posição, continua a montagem de push_>input>temp>context>obj
+        if temp.count < (temp.context.source.length-2)
+
+            temp.values = {}
+
+            # adiciona em push_>input>temp>context>obj um [object Object] com key = posição atual e val = push_>input>temp>context>obj (ele mesmo)
+            temp.values[temp.context.source[temp.count]] = return_.values
+            return_.values = temp.values
+
+        # adiciona -1 em push_>input>temp>count
+        temp.count--
+
+    return return_.values
+# Fim de "mescla valor de context da solicitação"
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+
 # # # # FUNÇÂO PRINCIPAL # # # # 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

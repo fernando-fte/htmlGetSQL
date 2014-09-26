@@ -8,7 +8,7 @@
 # recebe valores do html, trata os valores e aplica os tratamentos
 $.htmlGetSQL.push = (html) ->
     # # # # #
-    # # Descreve valores recebidos em '$.pull_values = (html) ->'
+    # # Descreve valores recebidos em '$.push_values = (html) ->'
     # html   = o HTML deve ser passado com um object dom '$(document)'
     # # # # #
 
@@ -27,158 +27,216 @@ $.htmlGetSQL.push = (html) ->
     # define 'push_' como um [object Object], para receber parametros
     push_ = {}
 
-    # define 'push_>input' como um [object Object], para input
-    push_.input = {}
+    # define 'tokens>push_>input' como um [object Object], para input
+    $.htmlGetSQL.tokens.push_.input = {} if !$.htmlGetSQL.tokens.push_.input
+
+    # define 'tokens>push_>input>temp' como um [object Object], para input
+    $.htmlGetSQL.tokens.push_.input.temp = {} if !$.htmlGetSQL.tokens.push_.input.temp
+
+    # define 'tokens>push_>input>contents' como um [object Object], para input
+    $.htmlGetSQL.tokens.push_.input.contents = {} if !$.htmlGetSQL.tokens.push_.input.contents
+
+    # define 'tokens>push_>hsitory' como um [object Object], para input
+    $.htmlGetSQL.tokens.push_.history = {} if !$.htmlGetSQL.tokens.push_.history
 
 
-    # # # # #
-    # Inicia a aplição da função $.push_values
+    # adiciona em tokens>push_>contents [data-htmlgetsql-push]
+    $.htmlGetSQL.tokens.push_.contents = html.find('[data-htmlgetsql-push]')
 
-    # adiciona em 'push_>contents'todas as incidencias de ['data-htmlgetsql-push']
-    push_.contents = html.find('[data-htmlgetsql-push]')
+    # # # 
+    # Trata cada ação [data-htmlgetsql-push]
 
+    # adiciona zero no contador
+    temp.count = 0
 
-    # valido de push>setings>action é do tipo 'input', onde bind deve ser ativo ao modificar algum texto
-    if push_.contents.data('htmlgetsql-push-sentings').action is 'input'
+    # laço para cada item de tokens>push_>contents
+    while temp.count < $.htmlGetSQL.tokens.push_.contents.length
 
-        # inicia o tratamento quando .bind for do tipo 'input', quando um texto é modificado
-        push_.contents.bind 'input', ->
+        console.log 
 
-            # # # #
-            # define objetos globais
+        # # # # 
+        # # Seleciona cada classe de ação
 
-            # adiciona em push_>input>this o documento atual do .bind()
-            push_.input.this = $(this)
+        # valido de push>setings>action é do tipo 'input', onde bind deve ser ativo ao modificar algum texto
+        if $($.htmlGetSQL.tokens.push_.contents[temp.count]).data('htmlgetsql-push-sentings').action is 'input'
 
-            # adiciona em push_>input>setings as configurações desse push
-            push_.input.setings = push_.input.this.data('htmlgetsql-push-sentings')
+            # inicia o tratamento quando .bind for do tipo 'input', quando um texto é modificado
+            $($.htmlGetSQL.tokens.push_.contents[temp.count]).bind 'input', ->
 
-            # define push_>input>this>push_ com [object Object], deve carregar as informações do envio
-            push_.input.push_ = {}
+                # # # 
+                # # Verifica se o campo ja foi processado
 
-            # cria objeto temporario 
-            push_.input.temp = {}
+                # Adiciona em temp o valor falso
+                $.htmlGetSQL.tokens.push_.input.temp = true
 
-            # cria objeto temporario para trabalhar os valores
-            push_.input.temp.context = {}
-
-
-            # # # #
-            # Trata as conexões deste evento
-            if push_.input.setings.connect is 'pull'
-
-                # #
-                # Seleciona os valores de ['data-htmlgetsql-table']
-
-                # caso ['data-htmlgetsql-table'] esteja na raiz, adiciona em push_>input>this>push_>table os valores de table
-                push_.input.push_.table = push_.input.this.data('htmlgetsql-table') if push_.input.this.data('htmlgetsql-table')
-
-                # caso ['data-htmlgetsql-table'] esteja nos elementos pai de this, adiciona em push_>input>this>push_>table os valores de table
-                push_.input.push_.table = $(push_.input.this).closest('[data-htmlgetsql-table]').data('htmlgetsql-table') if !push_.input.this.data('htmlgetsql-table')
-
+                # Adiciona em temp o valor verdadeiro, caso exista algo
+                $.htmlGetSQL.tokens.push_.input.temp = false if $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId] if $(this).data().dataHtmlgetsqlPushId
 
                 # #
-                # Seleciona os valores de ['data-htmlgetsql-select']
+                # Quando o campo ja tiver sido tratado
+                if !$.htmlGetSQL.tokens.push_.input.temp
 
-                # caso ['data-htmlgetsql-select'] esteja na raiz, adiciona em push_>input>this>push_>select os valores de select
-                push_.input.push_.select = push_.input.this.data('htmlgetsql-select') if push_.input.this.data('htmlgetsql-select')
+                    # adiciona temp no registro deste campo
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].temp = {}
 
-                # caso ['data-htmlgetsql-select'] esteja nos elementos pai de this, adiciona em push_>input>this>push_>select os valores de select
-                push_.input.push_.select = $(push_.input.this).closest('[data-htmlgetsql-select]').data('htmlgetsql-select') if !push_.input.this.data('htmlgetsql-select')
+                    # redefine this de context
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].context.this = $(this)
+
+                    # redefine value
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].value = $.htmlGetSQL.buttress.merger_object_context $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].context
+
+                    # redefine push_
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_ = {}
+                    # redefine push_update
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update = {}
+
+
+                    # # #
+                    # define valores para post 
+
+                    # redefine type sendo "UPDATE"
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.type = 'update'
+
+                    # redefine push_>table
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.table  = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].connect.table
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.select = {}
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.select.sku = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].connect.sku
+
+                    # redefine push_>update>history
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history = {}
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.this = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = false if $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = true if !$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
+
+                    # redefine push_>update>value
+                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.value = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].value
+
+
+                    console.log $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_
 
 
                 # #
-                # Seleciona os valores de ['data-htmlgetsql-context-inline']
+                # Quando for um campo
+                if $.htmlGetSQL.tokens.push_.input.temp
 
-                # caso ['data-htmlgetsql-context-inline] esteja na raiz, adiciona em push_>input>this>push_>context os valores de 'values' em context
-                push_.input.temp.context.this = push_.input.this.data('htmlgetsql-context-inline') if push_.input.this.data('htmlgetsql-context-inline')
+                    $.htmlGetSQL.tokens.push_.input.temp = {}
+                    # # # #
+                    # define objetos globais
 
-                # caso [['data-htmlgetsql-context-inline] esteja nos elementos pai de this, adiciona em push_>input>this>push_>context os valores de 'values' em context
-                push_.input.temp.context.this= $(push_.input.this).closest('[data-htmlgetsql-context-inline]').data('htmlgetsql-context-inline') if !push_.input.this.data('htmlgetsql-context-inline')
+                    # adiciona em push_>input>this o documento atual do .bind()
+                    $.htmlGetSQL.tokens.push_.input.temp.this = $(this)
 
+                    # adiciona em push_>input>setings as configurações desse push
+                    $.htmlGetSQL.tokens.push_.input.temp.setings = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-sentings')
 
-                # #
-                # Seleciona os valores de ['data-htmlgetsql-push-method']
+                    # define push_>input>this>push_ com [object Object], deve carregar as informações do envio
+                    $.htmlGetSQL.tokens.push_.input.temp.push_ = {}
 
-                # caso ['data-htmlgetsql-context-inline] esteja na raiz, adiciona em push_>input>this>push_>context os valores de 'values' em context
-                push_.input.push_.type = push_.input.this.data('htmlgetsql-push-method') if push_.input.this.data('htmlgetsql-push-method')
+                    # cria objeto temporario para trabalhar os valores
+                    $.htmlGetSQL.tokens.push_.input.temp.context = {}
 
-                # caso [['data-htmlgetsql-push-method] esteja nos elementos pai de this, adiciona em push_>input>this>push_>context os valores de 'values' em context
-                push_.input.push_.type = $(push_.input.this).closest('[data-htmlgetsql-push-method]').data('htmlgetsql-push-method') if !push_.input.this.data('htmlgetsql-push-method')
-
-
-            # # #
-            # Inicia tratamento dos valores de context
-
-            # adiciona em  push_>input>temp>context>temp a array com as substituições adequadas
-            push_.input.temp.context.temp = JSON.stringify(push_.input.temp.context.this).replace(/\,/g, '\n').replace(/\"/g, '').replace(/\{/g, '').replace(/\}/g, '').replace(/\n /g, '\n').replace(/\:/g, '>').split('\n')
-
-            # adiciona em push_>input>temp>context>source o resultado da função explode('>') em push_>input>temp>context>temp 
-            push_.input.temp.context.source = push_.input.temp.context.temp[0].split('>')
-
-            # adiciona em push_>input>temp>count a quantidade de campos de push_>input>temp>context>source, e subitrai 1 para a contagem a partir de 0
-            push_.input.temp.count = (push_.input.temp.context.source.length-1)
-
-            # #
-            # loop para capturar cada evento de push_>input>temp>context>source, com aplicação inversa
-            while push_.input.temp.count >= 0
-
-                # quando push_>input>temp>count estiver ultima posição, tratara o value
-                if push_.input.temp.count is (push_.input.temp.context.source.length-1)
-
-                    # adicina em push_>input>temp>context>teturn o valor da posição atual, este é o valor do metodo do context no objeto
-                    push_.input.temp.context.return = push_.input.temp.context.source[push_.input.temp.count] 
-
-                    # adiciona em push_>input>temp>context>value a função '$.htmlGetSQL.buttress.parse_values' para selecionar os dados do campo em push_>input>temp>context>return
-                    push_.input.temp.context.value = $.htmlGetSQL.buttress.parse_values push_.input.this, '', push_.input.temp.context.return
-
-                # quando push_>input>temp>count estiver na penultima posição, inicia montagem de push_>input>temp>context>obj
-                if push_.input.temp.count is (push_.input.temp.context.source.length-2)
-
-                    push_.input.push_.values = {}
-
-                    # adiciona em push_>input>temp>context>obj um [object Object] com key = posição atual e val = push_>input>temp>context>value
-                    push_.input.push_.values[push_.input.temp.context.source[push_.input.temp.count]] = push_.input.temp.context.value + ''
+                    # define em push_>input>temp>context>this o html de this
+                    $.htmlGetSQL.tokens.push_.input.temp.context.this = $.htmlGetSQL.tokens.push_.input.temp.this
 
 
+                    # # # #
+                    # Trata as conexões deste evento
+                    if $.htmlGetSQL.tokens.push_.input.temp.setings.connect is 'pull'
 
-                # quando push_>input>temp>count tiver passado da penultima posição, continua a montagem de push_>input>temp>context>obj
-                if push_.input.temp.count < (push_.input.temp.context.source.length-2)
+                        # #
+                        # Seleciona os valores de ['data-htmlgetsql-table']
 
-                    push_.input.temp.values = {}
+                        # caso ['data-htmlgetsql-table'] esteja na raiz, adiciona em push_>input>this>push_>table os valores de table
+                        $.htmlGetSQL.tokens.push_.input.temp.push_.table = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-table') if $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-table')
 
-                    # adiciona em push_>input>temp>context>obj um [object Object] com key = posição atual e val = push_>input>temp>context>obj (ele mesmo)
-                    push_.input.temp.values[push_.input.temp.context.source[push_.input.temp.count]] = push_.input.push_.values
-                    push_.input.push_.values = push_.input.temp.values
-
-                # adiciona -1 em push_>input>temp>count
-                push_.input.temp.count--
+                        # caso ['data-htmlgetsql-table'] esteja nos elementos pai de this, adiciona em push_>input>this>push_>table os valores de table
+                        $.htmlGetSQL.tokens.push_.input.temp.push_.table = $($.htmlGetSQL.tokens.push_.input.temp.this).closest('[data-htmlgetsql-table]').data('htmlgetsql-table') if !$.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-table')
 
 
-            # #
-            # Reserva valores dos resultados
+                        # #
+                        # Seleciona os valores de ['data-htmlgetsql-select']
 
-            # cria [objeto Object] para push_>input>setings>reserve caso ele já não exista
-            push_.input.setings.reserve = {} if !push_.input.setings.reserve
+                        # caso ['data-htmlgetsql-select'] esteja na raiz, adiciona em push_>input>this>push_>select os valores de select
+                        $.htmlGetSQL.tokens.push_.input.temp.push_.select = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-select') if $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-select')
 
-            # adiciona em push_>input>setings>reserve>source o source de context
-            push_.input.setings.reserve.source = push_.input.temp.context.source
+                        # caso ['data-htmlgetsql-select'] esteja nos elementos pai de this, adiciona em push_>input>this>push_>select os valores de select
+                        $.htmlGetSQL.tokens.push_.input.temp.push_.select = $($.htmlGetSQL.tokens.push_.input.temp.this).closest('[data-htmlgetsql-select]').data('htmlgetsql-select') if !$.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-select')
 
-            # adiciona em push_>input>setings>reverve>return o valor de retorno de ['data-htmlgetsql-context-inline']
-            push_.input.setings.reserve.return = push_.input.temp.context.return
 
-            delete push_.input.temp
+                        # #
+                        # Seleciona os valores de ['data-htmlgetsql-push-method']
 
-            # # #
-            # trata envio para o servidor
+                        # caso ['data-htmlgetsql-context-inline] esteja na raiz, adiciona em push_>input>this>push_>context os valores de 'values' em context
+                        $.htmlGetSQL.tokens.push_.input.temp.push_.type = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-method') if $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-method')
 
-            # acrecenta em push_>input>push_>return o resultado da submição
-            push_.input.push_.return = $($.htmlGetSQL.buttress.send push_.input.push_)[0]
+                        # caso [['data-htmlgetsql-push-method] esteja nos elementos pai de this, adiciona em push_>input>this>push_>context os valores de 'values' em context
+                        $.htmlGetSQL.tokens.push_.input.temp.push_.type = $($.htmlGetSQL.tokens.push_.input.temp.this).closest('[data-htmlgetsql-push-method]').data('htmlgetsql-push-method') if !$.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-method')
 
-            # caso tenha tido sucesso
-            if push_.input.push_.return.success
 
-                # adiciona na estrutura do html o valor de alteração
-                push_.input.this.attr("data-htmlgetsql-update", JSON.stringify(push_.input.push_.return))
+                        # #
+                        # Seleciona os valores de ['data-htmlgetsql-context-inline']
 
-                console.log $("[data-htmlgetsql-update]").data('htmlgetsql-update')
+                        # caso ['data-htmlgetsql-context-inline] esteja na raiz, adiciona em push_>input>this>push_>context os valores de 'values' em context
+                        $.htmlGetSQL.tokens.push_.input.temp.context.obj = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-context-inline') if $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-context-inline')
+
+                        # caso [['data-htmlgetsql-context-inline] esteja nos elementos pai de this, adiciona em push_>input>this>push_>context os valores de 'values' em context
+                        $.htmlGetSQL.tokens.push_.input.temp.context.obj= $($.htmlGetSQL.tokens.push_.input.temp.this).closest('[data-htmlgetsql-context-inline]').data('htmlgetsql-context-inline') if !$.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-context-inline')
+
+
+                    # # #
+                    # Inicia tratamento dos valores de context
+
+                    # trata os valores de context com o valor do input
+                    $.htmlGetSQL.tokens.push_.input.temp.push_.values = $.htmlGetSQL.buttress.merger_object_context $.htmlGetSQL.tokens.push_.input.temp.context
+
+
+                    # # #
+                    # trata envio para o servidor
+
+                    # acrecenta em push_>input>push_>return o resultado da submição
+                    $.htmlGetSQL.tokens.push_.input.temp.push_.return = $($.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.input.temp.push_)[0]
+
+                    # caso tenha tido sucesso
+                    if $.htmlGetSQL.tokens.push_.input.temp.push_.return.success
+
+                        # cria novo registro em contents
+                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history] = {}
+
+                        # adiciona os history
+                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history = {}
+
+                        # adiciona o id do registro
+                        $(this).data("data-htmlgetsql-push-id", $.htmlGetSQL.tokens.push_.input.temp.push_.return.history)
+
+                        # #
+                        # monta valores globais do campo
+
+                        # adciona connect
+                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].connect = $.htmlGetSQL.tokens.push_.input.temp.push_.return.connect
+
+                        # adciona value
+                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].value = $.htmlGetSQL.tokens.push_.input.temp.push_.values
+
+                        # adciona context obj
+                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].context = $.htmlGetSQL.tokens.push_.input.temp.context
+
+                        # adiciona os history
+                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history.this = $.htmlGetSQL.tokens.push_.input.temp.push_.return.history
+
+                        # monta change de history
+                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history] = true
+
+                        # adiciona history na raiz
+                        $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history] = {}
+
+                        # aponta histori para label ou campo
+                        $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].label = $.htmlGetSQL.tokens.push_.input.temp.push_.return.history
+
+                        # define que o objeto ainda não foi salvo
+                        $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].change = false
+
+
+
+
+        # console.log 'oi'
+        temp.count++
