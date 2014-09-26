@@ -34,10 +34,13 @@ $.htmlGetSQL.push = (html) ->
     $.htmlGetSQL.tokens.push_.input.temp = {} if !$.htmlGetSQL.tokens.push_.input.temp
 
     # define 'tokens>push_>input>contents' como um [object Object], para input
-    $.htmlGetSQL.tokens.push_.input.contents = {} if !$.htmlGetSQL.tokens.push_.input.contents
+    # $.htmlGetSQL.tokens.push_.field = {} if !$.htmlGetSQL.tokens.push_.field
 
-    # define 'tokens>push_>hsitory' como um [object Object], para input
+    # define 'tokens>push_>history' como um [object Object], para input
     $.htmlGetSQL.tokens.push_.history = {} if !$.htmlGetSQL.tokens.push_.history
+
+    # define 'tokens>push_>field' como um [object Object], para input
+    $.htmlGetSQL.tokens.push_.field = {} if !$.htmlGetSQL.tokens.push_.field
 
 
     # adiciona em tokens>push_>contents [data-htmlgetsql-push]
@@ -70,64 +73,64 @@ $.htmlGetSQL.push = (html) ->
                 $.htmlGetSQL.tokens.push_.input.temp = true
 
                 # Adiciona em temp o valor verdadeiro, caso exista algo
-                $.htmlGetSQL.tokens.push_.input.temp = false if $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId] if $(this).data().dataHtmlgetsqlPushId
+                $.htmlGetSQL.tokens.push_.input.temp = false if $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId] if $(this).data().dataHtmlgetsqlPushId
 
                 # #
                 # Quando o campo ja tiver sido tratado
                 if !$.htmlGetSQL.tokens.push_.input.temp
 
                     # adiciona temp no registro deste campo
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].temp = {}
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].temp = {}
 
                     # redefine this de context
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].context.this = $(this)
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].context.this = $(this)
 
                     # redefine value
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].value = $.htmlGetSQL.buttress.merger_object_context $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].context
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].value = $.htmlGetSQL.buttress.merger_object_context $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].context
 
                     # redefine push_
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_ = {}
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_ = {}
 
                     # redefine push_update
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update = {}
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.update = {}
 
 
                     # # #
                     # define valores para post 
 
                     # redefine type sendo "UPDATE"
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.type = 'update'
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.type = 'update'
 
                     # redefine push_>table
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.table  = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].connect.table
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.table  = $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].connect.table
 
                     # redefine push_>select
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.select = {}
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.select = {}
 
                     # redefine push_>select>sku
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.select.sku = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].connect.sku
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.select.sku = $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].connect.sku
 
 
                     # verifica se history é verdadeiro
-                    if $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
+                    if $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].history.this]
 
                         # redefine push_>update>history
-                        $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history = {}
+                        $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.update.history = {}
 
                         # adiciona em push_>update>history>this o id de history
-                        $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.this = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this
+                        $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.update.history.this = $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].history.this
 
                         # adiciona em push_>update>history>change com false
-                        $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = false 
+                        $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = false 
 
                     # retorna em history o valor falso
-                    delete $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.history if !$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].history.this]
+                    delete $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.update.history if !$.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].history[$.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].history.this]
 
                     # redefine push_>update>value
-                    $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_.update.value = $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].value
+                    $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.update.value = $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].value
 
                     # envia atualização para o servidor
-                    $.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.input.contents[$(this).data().dataHtmlgetsqlPushId].push_
+                    $.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_
 
 
                 # #
@@ -215,10 +218,10 @@ $.htmlGetSQL.push = (html) ->
                     if $.htmlGetSQL.tokens.push_.input.temp.push_.return.success
 
                         # cria novo registro em contents
-                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history] = {}
+                        $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history] = {}
 
                         # adiciona os history
-                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history = {}
+                        $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history = {}
 
                         # adiciona o id do registro
                         $(this).data("data-htmlgetsql-push-id", $.htmlGetSQL.tokens.push_.input.temp.push_.return.history)
@@ -227,31 +230,59 @@ $.htmlGetSQL.push = (html) ->
                         # monta valores globais do campo
 
                         # adciona connect
-                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].connect = $.htmlGetSQL.tokens.push_.input.temp.push_.return.connect
+                        $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].connect = $.htmlGetSQL.tokens.push_.input.temp.push_.return.connect
 
                         # adciona value
-                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].value = $.htmlGetSQL.tokens.push_.input.temp.push_.values
+                        $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].value = $.htmlGetSQL.tokens.push_.input.temp.push_.values
 
                         # adciona context obj
-                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].context = $.htmlGetSQL.tokens.push_.input.temp.context
+                        $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].context = $.htmlGetSQL.tokens.push_.input.temp.context
 
                         # adiciona os history
-                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history.this = $.htmlGetSQL.tokens.push_.input.temp.push_.return.history
+                        $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history.this = $.htmlGetSQL.tokens.push_.input.temp.push_.return.history
 
                         # monta change de history
-                        $.htmlGetSQL.tokens.push_.input.contents[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history] = true
+                        $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history] = true
 
                         # adiciona history na raiz
                         $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history] = {}
 
-                        # aponta histori para label ou campo
-                        $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].label = $.htmlGetSQL.tokens.push_.input.temp.push_.return.history
+                        # aponta histori para field ou campo
+                        $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].field = $.htmlGetSQL.tokens.push_.input.temp.push_.return.history
 
                         # define que o objeto ainda não foi salvo
                         $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].change = false
 
+                        # define o tipo de ação deste campo
+                        $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.input.temp.push_.return.history].action = 'input'
 
-
+                        # repassa para a função de processamento da função change
+                        $.htmlGetSQL.push.change $.htmlGetSQL.tokens.push_.input.temp.push_.return.history
+                # #
+                # Configura a ação de salvar
 
         # console.log 'oi'
         temp.count++
+
+
+    # # #
+    # Função para change
+    $.htmlGetSQL.push.change = (field) ->
+
+        # field = numero da posição em tokens
+        console.log 'oi'
+
+        # quando sair
+        # if $(this).data().htmlgetsqlPushChange is 'output'
+
+            # focus ao sair
+            # $(this).focusout ->
+
+                # adiciona em push_>update>history>change com false
+                # $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_.update.history.change = true 
+
+                # envia atualização para o servidor
+                # $.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.field[$(this).data().dataHtmlgetsqlPushId].push_
+
+
+

@@ -136,6 +136,12 @@ if (array_key_exists('type', $post)) {
                         unset($temp);
                     }
 
+                    # verifica se existe history, e se é finalizado
+                    if ($post['update']['history']['change'] === 'true') {
+
+                        echo 'salva';
+                    }
+
                 }
 
                 if (!array_key_exists('history', $post['update'])) {
