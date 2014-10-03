@@ -139,7 +139,120 @@ if (array_key_exists('type', $post)) {
                     # verifica se existe history, e se é finalizado
                     if ($post['update']['history']['change'] === 'true') {
 
-                        echo 'salva';
+                        # cria os valores de seleção para history
+                        $temp['change']['history']['connect']['regra']['where'] = 'LIKE';
+                        $temp['change']['history']['connect']['regra']['limit'] = '1';
+                        $temp['change']['history']['connect']['regra']['order']['to'] = 'history';
+                        $temp['change']['history']['connect']['regra']['order']['by'] = 'ASC';
+
+                        $temp['change']['history']['connect']['select']['history'] = $post['update']['history']['this'];
+
+                        # adiciona em $temp>regra os valores de $post na função 'f_json_where'
+                        $temp['change']['history']['connect']['regra'] = f_json_where($temp['change']['history']['connect']);
+
+                        # adiciona em $temp>tabela o valor referente a tabela com tratamento especifico
+                        $temp['change']['history']['connect']['tabela'] = '`htmlgetsql.history`'; 
+
+                        # adiciona em $temp>campos os campos a serem selecionado, no caso "*" todos por padrão
+                        $temp['change']['history']['connect']['campos'] = array('' => '`values`');
+
+                        # seleciona os valores do banco de dados recebidos da função select() com os dados tratados anteriormente
+                        $temp['change']['history']['connect']['select'] = select($temp['change']['history']['connect']['tabela'], $temp['change']['history']['connect']['campos'], $temp['change']['history']['connect']['regra']);
+
+                        # remove o item zero da resposta
+                        unset($temp['change']['history']['connect']['select'][0]);
+
+                        # #
+                        # mapeia resposta para array
+                        $temp['change']['history']['connect']['select']['values'] = json_decode($temp['change']['history']['connect']['select']['values'], true);
+
+                        # move item atual para change
+                        $temp['change']['history']['connect']['select']['values']['change'] = $temp['change']['history']['connect']['select']['values']['history']['atual'];
+
+                        # adiciona data de change
+                        $temp['change']['history']['connect']['select']['values']['change']['date']['change'] = date('Y-m-d').' '.date('h:i:s');
+
+                        # remove os itens de backup para a raiz
+                        $temp['change']['history']['connect']['select']['values']['history'] = $temp['change']['history']['connect']['select']['values']['history']['backup'];
+
+                        # reserva o valor da tabela do conteudo
+                        $temp['change']['value']['connect']['select']['sku'] = $temp['change']['history']['connect']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['sku'];
+
+                        # reserva o valor da tabela do conteudo
+                        $temp['change']['value']['connect']['tabela'] = $temp['change']['history']['connect']['select']['values']['htmlGetSQL.setings']['htmlGetSQL.selectors']['select']['table'];
+
+                        # reserva o conteudo a ser substituido
+                        $temp['change']['value']['replace'] = $temp['change']['history']['connect']['select']['values']['change']['values'];
+
+                        # mapeia os dados de resposta do servidor e transforma em object json
+                        $temp['change']['history']['connect']['select']['values'] = json_encode($temp['change']['history']['connect']['select']['values'], true);
+
+                        # #
+
+                        # envia update ao banco
+                        update('`htmlgetsql.history`', $temp['change']['history']['connect']['select'], $temp['change']['history']['connect']['regra']);
+
+                        # apaga history
+                        unset($temp['change']['history']);
+
+
+                        # Fim de trata history
+                        # # # # #
+
+
+                        # # #
+                        # seleciona history e trata change
+                        
+
+                        # # #
+                        # atualiza os dados na tabela
+
+                        # cria os valores de seleção para history
+                        $temp['change']['value']['connect']['regra']['where'] = 'LIKE';
+                        $temp['change']['value']['connect']['regra']['limit'] = '1';
+                        $temp['change']['value']['connect']['regra']['order']['to'] = 'sku';
+                        $temp['change']['value']['connect']['regra']['order']['by'] = 'ASC';
+
+                        # adiciona em $temp>regra os valores de $post na função 'f_json_where'
+                        $temp['change']['value']['connect']['regra'] = f_json_where($temp['change']['value']['connect']);
+
+                        # adiciona em $temp>tabela o valor referente a tabela com tratamento especifico
+                        $temp['change']['value']['connect']['tabela'] = '`'.$temp['change']['value']['connect']['tabela'].'`'; 
+
+                        # adiciona em $temp>campos os campos a serem selecionado, no caso "*" todos por padrão
+                        $temp['change']['value']['connect']['campos'] = array('' => '`values`');
+
+                        # seleciona os valores do banco de dados recebidos da função select() com os dados tratados anteriormente
+                        $temp['change']['value']['connect']['select'] = select($temp['change']['value']['connect']['tabela'], $temp['change']['value']['connect']['campos'], $temp['change']['value']['connect']['regra']);
+
+                        # remove o item zero da resposta
+                        unset($temp['change']['value']['connect']['select'][0]);
+
+                        # mapeia resposta para array
+                        $temp['change']['value']['connect']['select']['values'] = json_decode($temp['change']['value']['connect']['select']['values'], true);
+
+                        # # # # #
+                        # # Esta funcionando apenas no primeiro nível
+
+                        # mescla o resultado com o valor do banco
+                        $temp['change']['value']['connect']['select']['values'] = array_merge($temp['change']['value']['connect']['select']['values'], $temp['change']['value']['replace']);
+
+                        # # Esta funcionando apenas no primeiro nível
+                        # # # # #
+
+                        # mapeia os dados de resposta do servidor e transforma em object json
+                        $temp['change']['value']['connect']['select']['values'] = json_encode($temp['change']['value']['connect']['select']['values'], true);
+
+                        # envia update ao banco
+                        update($temp['change']['value']['connect']['tabela'], $temp['change']['value']['connect']['select'], $temp['change']['value']['connect']['regra']);
+
+                        # remove o replace temporario
+                        unset($temp['change']['value']);
+
+                        # adiciona que o success é verdadeiro
+                        $temp['return']['success'] = true;
+
+                        echo '['.json_encode($temp['return'], true).']';
                     }
 
                 }

@@ -356,11 +356,7 @@ function update($tabela, $dados, $regra){
 
     # caso não algun dos argumentos não sejam válidos
     else {
-        echo '
-        Incompatibilidade com um dos campos que exigem arrays, veja a requisição deste objeto.
-        <br>
-        <a href="?api=functions->sql->update->param">Consulte a api</a>
-        ';
+        return $return['success'] = 'Incompatibilidade com um dos campos que exigem arrays, veja a requisição deste objeto.';
     }
     # Fim de "verifica se os campos repassados são válidos, para o processamento"
     # #

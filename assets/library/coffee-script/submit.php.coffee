@@ -17,6 +17,6 @@ $.htmlGetSQL.buttress.send = (value) ->
     .done (data) -> 
         # console.log data # exibe valor de data
         value = data
-        console.log value
+        # console.log value
     # retorna value a solicitação com 'eval()'
     return eval(value)
