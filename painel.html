@@ -12,6 +12,8 @@
         <!-- VENDOR: Bootstrap - css -->
         <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+        <!-- VENDOR: Bootstrap ICON - css -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
 
     <body>
@@ -55,7 +57,7 @@
 
                             data-htmlgetsql-push='update'
                             data-htmlgetsql-push-sentings='{"action":"input", "connect":"pull", "context":"value", "change":"pull"}'
-                            data-htmlgetsql-push-change='{"action":"me", "method":"input", "success":{"get":"me", "success":"css"} }'
+                            data-htmlgetsql-push-change='{"action":"get", "get":"salvarJumbotron"}'
                         >
 
                         <br>
@@ -84,7 +86,20 @@
                                 data-htmlgetsql-context-inline='{"btn":{"url":"value"}}'
                             >
                         </div>
+
+                        <p class="btn btn-success btn-xs"
+                            data-htmlgetsql-push-change-id='salvarJumbotron'
+                            data-htmlgetsql-push-change='{"method":"click", "success":{"get":"me", "success":"css"}}'
+                        ><i class="fa fa-check"></i> Salvar</p>
+
+                        <!-- grupo de botões 
+                        <div class="btn-change">
+                            <p class="btn btn-default btn-xs btn-change-salvo"><i class="fa fa-check-square-o"></i> Salvo</p>
+                            <p class="btn btn-danger btn-xs btn-change-erro"><i class="fa fa-exclamation-circle"></i>Não salvou</p>
+                        </div>
+                        -->
                     </div>
+
 
                     <h3>Notícia</h3>
                     <!-- Galeria -->

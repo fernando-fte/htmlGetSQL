@@ -241,7 +241,10 @@ $.htmlGetSQL.push = (html) ->
                             $.htmlGetSQL.tokens.push_.input.temp.setings.change = {}
 
                             # configura o elemento a receber o evento
-                            $.htmlGetSQL.tokens.push_.input.temp.setings.change.get = 'me'
+                            $.htmlGetSQL.tokens.push_.input.temp.setings.change.get = false
+
+                            # configura que o tipo de change seja ao sair do input
+                            $.htmlGetSQL.tokens.push_.input.temp.setings.change.type = 'input'
 
                         # #
                         # caso change seja do tipo pull, caso exista configurações
@@ -253,14 +256,33 @@ $.htmlGetSQL.push = (html) ->
                             # valida se existe a configuração
                             if $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change')
 
-                                # configura o elemento a receber o evento
-                                $.htmlGetSQL.tokens.push_.input.temp.setings.change.get = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').action
+                                # verifica se o metotho de tratamento esta em mim
+                                if $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').action is 'me'
 
-                                # configura que o tipo de change seja ao sair do input, caso não tenha recebido nem um parametro
-                                $.htmlGetSQL.tokens.push_.input.temp.setings.change.type = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').method
+                                    # configura o elemento a receber o evento
+                                    $.htmlGetSQL.tokens.push_.input.temp.setings.change.get = false
 
-                                # adiciona a configuração de success
-                                $.htmlGetSQL.tokens.push_.input.temp.setings.change.success = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').success
+                                    # configura que o tipo de change seja ao sair do input, caso não tenha recebido nem um parametro
+                                    $.htmlGetSQL.tokens.push_.input.temp.setings.change.type = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').method
+
+                                    # adiciona a configuração de success
+                                    $.htmlGetSQL.tokens.push_.input.temp.setings.change.success = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').success
+
+                                    # configura que o tipo de change seja ao sair do input
+                                    $.htmlGetSQL.tokens.push_.input.temp.setings.change.type = 'input'
+
+
+                                # verifica se o metodo de tratamento é externo
+                                if $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').action is 'get'
+
+                                    # verifica se ja existe este atributo no campo get
+                                    if $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').get
+
+                                        # adiciona o id em change>get
+                                        $.htmlGetSQL.tokens.push_.input.temp.setings.change.get = true
+
+                                        # adiciona o id em change>id
+                                        $.htmlGetSQL.tokens.push_.input.temp.setings.change.id = $.htmlGetSQL.tokens.push_.input.temp.this.data('htmlgetsql-push-change').get
 
 
                     # # Caso não exista change
@@ -270,11 +292,9 @@ $.htmlGetSQL.push = (html) ->
                         $.htmlGetSQL.tokens.push_.input.temp.setings.change = {}
 
                         # configura o elemento a receber o evento
-                        $.htmlGetSQL.tokens.push_.input.temp.setings.change.get = 'me'
+                        $.htmlGetSQL.tokens.push_.input.temp.setings.change.get = false
 
-
-                    # configura que o tipo de change seja ao sair do input, caso não tenha recebido nem um parametro
-                    $.htmlGetSQL.tokens.push_.input.temp.setings.change.type = 'input' if !$.htmlGetSQL.tokens.push_.input.temp.setings.change.type
+                        $.htmlGetSQL.tokens.push_.input.temp.setings.change.type = 'input'
 
 
                     # Trata as configurações de change
@@ -346,9 +366,21 @@ $.htmlGetSQL.push = (html) ->
     # Função para change
     $.htmlGetSQL.push.change = (field) ->
 
+        # # # # # # # # # # # # # #
+        # Define objetos globais
+
+        # define 'tokens>push_>change' como um [object Object], para change
+        $.htmlGetSQL.tokens.push_.change = {} if !$.htmlGetSQL.tokens.push_.change
+
+        # define 'tokens>push_>change>temp' como um [object Object], para change
+        $.htmlGetSQL.tokens.push_.change.temp = {} if !$.htmlGetSQL.tokens.push_.change.temp
+
+        # Define objetos globais
+        # # # # # # # # # # # # # #
+
         # # 
         # caso a seleção do change seja em this/me
-        if $.htmlGetSQL.tokens.push_.field[field].change.get is  'me'
+        if $.htmlGetSQL.tokens.push_.field[field].change.get is false
 
             # #
             # seleciona o method que deve ser definido para change
@@ -395,28 +427,83 @@ $.htmlGetSQL.push = (html) ->
                         # #
 
 
-        # $.htmlGetSQL.tokens.push_.field[field].push_.type = 'update'
+        # caso exista o atributo
+        if $.htmlGetSQL.tokens.push_.field[field].change.get is true
+
+            # verifica se o change ainda não existe na biblioteca change
+            if !$.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id]
+                
+                # adiciona em temp.count zero
+                $.htmlGetSQL.tokens.push_.change.temp.count = 0
+
+                # loop para selecionar cada "htmlgetsql-push-change-id"
+                while $.htmlGetSQL.tokens.push_.change.temp.count < $(document).find('[data-htmlgetsql-push-change-id]').length
+
+                    # adiciona o valor na posição atual para manipulaçnao
+                    $.htmlGetSQL.tokens.push_.change.temp.this = $(document).find('[data-htmlgetsql-push-change-id]')[$.htmlGetSQL.tokens.push_.change.temp.count]
+
+                    # verifica se ainstancia atual não existe no index
+                    if !$.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')]
+
+                        # cria change como [object Object]
+                        $.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')] = {}
+
+                        # adiciona configurações basicas
+                        $.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')].this = $.htmlGetSQL.tokens.push_.change.temp.this
+
+                        # adiciona history em change
+                        $.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')].history = {}
+
+                        # adiciona a validaça em change como preenchida
+                        $.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')].change = null
+
+                        # adiciona instruções adicionadas
+                        $.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')].setings = $($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change')
+
+                    # adiciona 1 no contador
+                    $.htmlGetSQL.tokens.push_.change.temp.count++
+
+
+            # adiciona o primeiro history ao change
+            $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history[$.htmlGetSQL.tokens.push_.field[field].history.this] = {}
+
+            # adiciona como change false, não tendo sido salvo
+            $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].change = false
 
 
 
-        # field = numero da posição em tokens
-        # console.log field
+            # # #
+            # # Inicia tratamento do evento
 
-        # localiza item no field
-        # console.log $.htmlGetSQL.tokens.push_.field[field]
+            # caso a configuração seja para click
+            if $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].setings.method is 'click'
+
+                # adiciona evento click
+                $($.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].this).click ->
+
+                    # verifica se ainda existe algo a ser salvo
+                    if $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].change is false
 
 
-        # quando sair
-        # if $(this).data().htmlgetsqlPushChange is 'output'
+                        console.log $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id]
 
-            # focus ao sair
-            # $(this).focusout ->
 
-                # adiciona em push_>update>history>change com false
-                # $.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].push_.update.history.change = true 
 
-                # envia atualização para o servidor
-                # $.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].push_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
