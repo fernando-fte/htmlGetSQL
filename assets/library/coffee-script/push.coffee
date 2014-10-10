@@ -150,6 +150,18 @@ $.htmlGetSQL.push = (html) ->
                         # define em history global o field a quem ele pertence                        
                         $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].push_.return.history].field = $(this).data('htmlgetsql-push-id')
 
+                        # define caso change seja em get
+                        if $.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].change.get
+
+                            # adiciona no evento change o atributo false
+                            $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].change.id].change = false
+
+                            # adiciona o history na listagem do change
+                            $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].change.id].history[$.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].change.id].history.length] = $.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].push_.return.history
+
+                            # adiciona +1 em length para contar o valor adicionado
+                            $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[$(this).data('htmlgetsql-push-id')].change.id].history.length++
+
 
                 # #
                 # Quando for um novo campo
@@ -454,6 +466,9 @@ $.htmlGetSQL.push = (html) ->
                         # adiciona history em change
                         $.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')].history = {}
 
+                        # adiciona langht em history
+                        $.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')].history.length = 0
+
                         # adiciona a validaça em change como preenchida
                         $.htmlGetSQL.tokens.push_.change[$($.htmlGetSQL.tokens.push_.change.temp.this).data('htmlgetsql-push-change-id')].change = null
 
@@ -464,12 +479,14 @@ $.htmlGetSQL.push = (html) ->
                     $.htmlGetSQL.tokens.push_.change.temp.count++
 
 
-            # adiciona o primeiro history ao change
-            $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history[$.htmlGetSQL.tokens.push_.field[field].history.this] = {}
+            # cria posição em history
+            $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history[$.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history.length] = $.htmlGetSQL.tokens.push_.field[field].history.this
+
+            # adiciona +1 ao length de history para contabilizar a adição de um novo historico
+            $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history.length++
 
             # adiciona como change false, não tendo sido salvo
             $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].change = false
-
 
 
             # # #
@@ -484,10 +501,80 @@ $.htmlGetSQL.push = (html) ->
                     # verifica se ainda existe algo a ser salvo
                     if $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].change is false
 
+                        # adiciona 0 pra contador em temp
+                        $.htmlGetSQL.tokens.push_.change.temp.count = 0
 
-                        console.log $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id]
+                        # adiciona change em temp para manipulação temporaria
+                        $.htmlGetSQL.tokens.push_.change.temp.change = {}
+
+                        # loop para capturar cada instancia de history
+                        while $.htmlGetSQL.tokens.push_.change.temp.count < $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history.length
+
+                            # adiciona em temp>change>this o valor do history a ser checado
+                            $.htmlGetSQL.tokens.push_.change.temp.change.history = $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history[$.htmlGetSQL.tokens.push_.change.temp.count]
+
+                            # localiza field para mainipulação
+                            $.htmlGetSQL.tokens.push_.change.temp.change.field = $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.change.temp.change.history].field
 
 
+                            # caso o history atual do campo esteja ativo
+                            if !$.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.change.temp.change.history].change
+
+                                # limpa push_
+                                $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].push_ = {}
+
+                                # adiciona update em push_
+                                $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].push_.update = {}
+
+                                # adiciona history em push_
+                                $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].push_.update.history = {}
+
+
+                                # define type em push_
+                                $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].push_.type = 'update'
+
+                                # adiciona em push_>update>history>change com false
+                                $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].push_.update.history.this = $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].history.this
+
+                                # adiciona em push_>update>history>this o id de history
+                                $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].push_.update.history.change = true
+
+                                # envia chenge ao servidor
+                                console.log $($.htmlGetSQL.buttress.send $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].push_)[0]
+
+                                # #
+                                # registra finalização de modificação da estrutura
+
+                                # aplica false ao history atual
+                                $.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].history[$.htmlGetSQL.tokens.push_.field[$.htmlGetSQL.tokens.push_.change.temp.change.field].history.this] = false
+
+                                # define na lista de historys que esse history tem change como  true
+                                $.htmlGetSQL.tokens.push_.history[$.htmlGetSQL.tokens.push_.change.temp.change.history].change= true
+
+                                # #
+
+                            # finaliza ação
+                            if ($.htmlGetSQL.tokens.push_.change.temp.count+1) is $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history.length
+
+                                while $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history.length > 0
+
+                                    # deleta o valor atual relativo a length
+                                    delete $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history[($.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history.length-1)]
+
+                                    # remove 1 de langht
+                                    $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].history.length--
+
+                                # adiciona em change o atributo change true
+                                $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id].change = true
+
+                            # adiciona +1 no contador
+                            $.htmlGetSQL.tokens.push_.change.temp.count++
+
+                        # seleciona contador
+
+                        # console.log $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id]
+
+                        #
 
 
 
