@@ -31,9 +31,9 @@
                     <div class="form-group">
                         <input type="text" placeholder="Titulo da pagina" class="form-control input-lg text-center"
 
-                            data-htmlgetsql-pull='me' 
-                            data-htmlgetsql-table='tabela' 
-                            data-htmlgetsql-select='{"index":"1", "segmento":"page", "grupo":"home", "type":"title"}' 
+                            data-htmlgetsql-pull='me'
+                            data-htmlgetsql-table='tabela'
+                            data-htmlgetsql-select='{"index":"1", "segmento":"page", "grupo":"home", "type":"title"}'a
                             data-htmlgetsql-context-inline='{"titulo":"value"}'
 
                             data-htmlgetsql-push='update'
@@ -65,6 +65,10 @@
                         <!-- Faxada: "p" -->
                         <textarea placeholder="Texto sobre o jumbotron" class="form-control" 
                             data-htmlgetsql-context-inline='{"about":"text"}'
+
+                            data-htmlgetsql-push='update'
+                            data-htmlgetsql-push-sentings='{"action":"input", "connect":"pull", "context":"value", "change":"pull"}'
+                            data-htmlgetsql-push-change='{"action":"get", "get":"salvarJumbotron"}'
                         ></textarea>
 
                         <br>
@@ -74,16 +78,28 @@
                             <!-- Faxada: "a>url" -->
                             <input type="text" placeholder="Sobre a pagina" class="form-control input-sm" 
                                 data-htmlgetsql-context-inline='{"btn":{"text":"value"}}'
+
+                                data-htmlgetsql-push='update'
+                                data-htmlgetsql-push-sentings='{"action":"input", "connect":"pull", "context":"value", "change":"pull"}'
+                                data-htmlgetsql-push-change='{"action":"get", "get":"salvarJumbotron"}'
                             ><br>
 
                             <!-- Faxada: "a>url" -->
                             <input type="text" placeholder="Sobre a pagina" class="form-control input-sm" 
                                 data-htmlgetsql-context-inline='{"btn":{"title":"value"}}'
+
+                                data-htmlgetsql-push='update'
+                                data-htmlgetsql-push-sentings='{"action":"input", "connect":"pull", "context":"value", "change":"pull"}'
+                                data-htmlgetsql-push-change='{"action":"get", "get":"salvarJumbotron"}'
                             ><br>
 
                             <!-- Faxada: "a>url" -->
                             <input type="text" placeholder="Sobre a pagina" class="form-control input-sm" 
                                 data-htmlgetsql-context-inline='{"btn":{"url":"value"}}'
+
+                                data-htmlgetsql-push='update'
+                                data-htmlgetsql-push-sentings='{"action":"input", "connect":"pull", "context":"value", "change":"pull"}'
+                                data-htmlgetsql-push-change='{"action":"get", "get":"salvarJumbotron"}'
                             >
                         </div>
 

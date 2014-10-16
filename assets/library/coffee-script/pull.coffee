@@ -45,7 +45,7 @@ $.htmlGetSQL.buttress.parse_values = (me, data, val) -> #recebe função, introd
 
             when "text" # quando o tipo for texto
                 value.me.html(value.val) if !value.return
-                return me.html() if value.return
+                return me.val() if value.return
 
             when "url" # quando for uma url
                 value.me.attr("href":value.val) if !value.return

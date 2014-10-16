@@ -569,28 +569,3 @@ $.htmlGetSQL.push = (html) ->
 
                             # adiciona +1 no contador
                             $.htmlGetSQL.tokens.push_.change.temp.count++
-
-                        # seleciona contador
-
-                        # console.log $.htmlGetSQL.tokens.push_.change[$.htmlGetSQL.tokens.push_.field[field].change.id]
-
-                        #
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
