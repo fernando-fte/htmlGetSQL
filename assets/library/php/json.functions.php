@@ -609,4 +609,110 @@ function f_new_history($post) {
 }
 # função para criar history
 # # # # #
+
+
+
+# # # # #
+# função merger recursive com retorno de array
+function f_merger($temp) {
+    # recebe em temp o conjunto array
+    # ['content'] = Conteúdo original
+    # ['replace'] = Conteúdo direcional
+    # ['setings']:(return|replace) = metodo de tratamento
+    # ['play']:bolean = regra de verificação das regras e parametros função
+
+    # verifica se não existe play, caso tenha os atributos foram validados
+    if (!array_key_exists('start', $temp)) {
+
+        # define que temp>play é falso
+        $temp['start'] = false;
+
+        # verifica se existe os valores de replace
+        if (array_key_exists('setings', $temp)) {
+
+            # verifica se existe os valores de replace
+            if (array_key_exists('replace', $temp)) {
+
+                # verifica se existe os valores de contents
+                if (array_key_exists('content', $temp)) {
+
+                    # define que temp start pode ser verdadeito
+                    $temp['start'] = true;
+                }
+            }
+        }
+    }
+
+    # monta caso start true
+    if ($temp['start']) {
+
+        # executa loop para selecionar cada item
+        foreach ($temp['replace'] as $k => $v) {
+
+            # verifica se os values de temp>replace tem sub conteúdos
+            if(is_array($v) && is_array($temp['content'][$k])){
+
+                # monta os valores temporários para montagem do dados array
+                $temp['send']['replace'] = $temp['replace'][$k];
+                $temp['send']['content'] = $temp['content'][$k];
+                $temp['send']['setings'] = $temp['setings'];
+                $temp['send']['start']    = true;
+
+                # adiciona em return o valor da função
+                $temp['return'] = f_merger($temp['send']);
+
+                # acrecenta em temp>replace[k] o valor de replace retornado
+                $temp['replace'][$k] = $temp['return']['replace'];
+
+                # acrecenta em temp>content[k] o valor de replace retornado
+                $temp['content'][$k] = $temp['return']['content'];
+            }
+
+            # caso temp>replace não seja uma estrutura array
+            else{
+
+                # caso setings seja para replace, o final de replace deve subistituir contents
+                if($temp['setings'] == 'replace'){
+
+                    # replace subistitui contents
+                    $temp['content'][$k] = $temp['replace'][$k];
+                }
+
+                # caso setings seja para replace, o final de replace deve subistituir contents
+                if($temp['setings'] == 'return'){
+
+                    if(is_array($temp['content'])) {
+
+                        # replace subistitui contents, quando array
+                        $temp['replace'][$k] = $temp['content'][$k];
+                    }
+
+                    else {
+
+                        # replace subistitui content
+                        $temp['replace'] = $temp['content'];
+                    }
+                }
+            }
+        }
+
+        # monta os valores temporários para montagem do dados array
+        $return['replace'] = $temp['replace'];
+        $return['content'] = $temp['content'];
+        $return['setings'] = $temp['setings'];
+
+        unset($temp);
+
+        return $return;
+    }
+
+    # retorna erro caso os parametros estejam errados
+    else {
+
+        return 'Erro na sintax da solicitação ($temp = {content | replace | setings})';
+    }
+}
+# função merger recursive com retorno de array
+# # # # #
+
 ?>
