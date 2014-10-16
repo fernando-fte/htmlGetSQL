@@ -232,12 +232,25 @@ if (array_key_exists('type', $post)) {
                         $temp['change']['value']['connect']['select']['values'] = json_decode($temp['change']['value']['connect']['select']['values'], true);
 
                         # # # # #
-                        # # Esta funcionando apenas no primeiro nível
+                        # # Mescla todos os níveis de arrays
 
-                        # mescla o resultado com o valor do banco
-                        $temp['change']['value']['connect']['select']['values'] = array_merge($temp['change']['value']['connect']['select']['values'], $temp['change']['value']['replace']);
+                        # #
+                        # adiciona em temp>merger os parametros para a função f_merger
+                        $temp['merger']['content'] = $temp['change']['value']['connect']['select']['values'];
+                        $temp['merger']['replace'] = $temp['change']['value']['replace'];
+                        $temp['merger']['setings'] = 'replace';
+                        # # 
 
-                        # # Esta funcionando apenas no primeiro nível
+                        # adiciona em temp>merger>return os dados de retorno da função
+                        $temp['merger']['return'] = f_merger($temp['merger']);
+
+                        # adiciona em temp>change>value>connect>select>values o valor de retorno de contents
+                        $temp['change']['value']['connect']['select']['values'] = $temp['merger']['return']['content'];
+
+                        # apaga a array temp>merger
+                        unset($temp['merger']);
+
+                        # # Mescla todos os níveis de arrays
                         # # # # #
 
                         # mapeia os dados de resposta do servidor e transforma em object json
