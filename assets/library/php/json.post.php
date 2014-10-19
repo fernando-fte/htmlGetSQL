@@ -2,7 +2,7 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # APLICAÇÃO DE TRATAMENTO E TRAMITAÇÃO DE DADOS JSON        #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
+ini_set("display_errors", 0);
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Inclui funções e regras pre-determinadas
